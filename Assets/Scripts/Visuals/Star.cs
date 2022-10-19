@@ -9,6 +9,7 @@ namespace Visuals
     {
         public SpriteRenderer sprite;
         public Light2D starLight;
+        public string name;
         public Attractor attractor;
     }
 }

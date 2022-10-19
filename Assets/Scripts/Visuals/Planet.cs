@@ -8,7 +8,9 @@ namespace Visuals
     {
         public SpriteRenderer sprite;
         public TrailRenderer trail;
+        public string name;
         public float showThreshold;
+        public bool inhabited;
 
         public void Update()
         {

@@ -1,0 +1,27 @@
+﻿using System;
+using Physics;
+using UnityEngine;
+using UnityEngine.UI;
+using Utils;
+
+namespace UI
+{
+    public class UIShipStatusPanel : MonoBehaviour
+    {
+        public float fuelWidth = 1870;
+        public Image fuelImage;
+        public Text velocityText;
+        public Text gravityText;
+        public SpaceshipController controller;
+        public PhysicsSystem physicsSystem;
+
+        public void Update()
+        {
+            var width = fuelWidth * controller.FuelPercent;
+            fuelImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
+            velocityText.text = $"{controller.C:0.00}c";
+            var shipPos = controller.transform.position;
+            gravityText.text = $"{physicsSystem.Gravity(shipPos).magnitude / 9.81f:0.00}g";
+        }
+    }
+}

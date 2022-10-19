@@ -1,32 +1,68 @@
+using System;
 using System.Collections;
 using Physics;
 using UnityEngine;
+using Visuals;
 
 namespace Utils
 {
     public class SpaceshipController : MonoBehaviour
     {
-        public float turnSpeed;
+        public Vector2 Velocity => _physicsBody.GetVelocity();
+        public float C => (float)Math.Exp(Velocity.magnitude / 40f) - 1f;
+        public bool Maneuvering => _maneuvering;
+        public bool Refueling => _refueling;
+        public float FuelPercent => _fuel / maxFuel;
+        
         public float thrust;
         public float dashRange;
+        public float maxFuel;
+        public float consumptionRate;
+        public float refuelRange;
+        public MapDefinition map;
         [Range(0.05f, 1)] public float dashSpeed;
 
         private PhysicsBody _physicsBody;
         private (Vector2, Vector2) _dashData;
+        private float _fuel;
+        private bool _maneuvering;
+        private bool _refueling;
 
         public void Start()
         {
             _physicsBody = gameObject.GetComponent<PhysicsBody>();
+            _fuel = maxFuel;
         }
 
+        public void Refuel(float value)
+        {
+            _refueling = true;
+            _fuel += value;
+            _fuel = Mathf.Clamp(_fuel, 0, maxFuel);
+        }
+        
         public void Update()
         {
+            _refueling = false;
+            
             var vert = Input.GetAxis("Vertical");
             var hor = Input.GetAxis("Horizontal");
 
-            if (vert != 0 || hor != 0)
+            var closest = map.ClosestPlanet;
+            if (closest.planet != null && closest.planet.inhabited && closest.dist < refuelRange)
             {
+                Refuel(Time.deltaTime * 10f);
+            }
+            
+            if ((vert != 0 || hor != 0) && _fuel > 0)
+            {
+                _maneuvering = true;
+                _fuel -= consumptionRate * Time.deltaTime;
                 AddThrust(vert, hor);
+            }
+            else
+            {
+                _maneuvering = false;
             }
 
             Turn();
@@ -35,8 +71,6 @@ namespace Utils
             {
                 StartCoroutine(Dash());
             }
-
-            var attractors = _physicsBody.physicsSystem;
         }
 
         private void Turn()
