@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using Systems.Spaceship;
 using UnityEngine;
-using Utils;
 using Vectrosity;
 
 namespace Visuals

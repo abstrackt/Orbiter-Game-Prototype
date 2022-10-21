@@ -1,11 +1,11 @@
 using System;
-using System.Collections.Generic;
 using Physics;
 using UnityEngine;
+using Utils;
 using Visuals;
 using Random = UnityEngine.Random;
 
-namespace Utils
+namespace Systems.Map
 {
     public class MapGenerator : MonoBehaviour
     {
@@ -40,6 +40,7 @@ namespace Utils
                 var starTr = starGo.transform;
                 var starVis = starGo.GetComponent<Star>();
                 var att = starGo.GetComponent<Attractor>();
+                var starPhysics = starGo.GetComponent<PhysicsBody>();
 
                 starTr.position = new Vector3(
                     (Random.value - .5f) * mapSize, 
@@ -54,6 +55,8 @@ namespace Utils
                     (80 + starTemp * 1.5f) / 255f);
                 var starSize = Random.Range(1.5f, 5f);
 
+                starPhysics.mass = Mathf.Pow(starSize + 1f, 3);
+
                 starVis.sprite.color = starColor;
                 starVis.starLight.color = starColor;
                 starVis.transform.localScale = new Vector3(starSize, starSize, 1);
@@ -63,7 +66,7 @@ namespace Utils
                 physicsSystem.attractors.Add(att);
 
                 var star = starGo.GetComponent<Star>();
-                star.name = NameGenerator.GetRandomStarName();
+                star.starName = NameGenerator.GetRandomStarName();
                 map.stars.Add(star);
 
                 var planets = Random.Range(0, maxPlanetCount);
@@ -81,19 +84,19 @@ namespace Utils
                                 Random.insideUnitCircle.normalized * orbitHeight;
                     var accel = physicsSystem.Gravity(point);
                     var v = new Vector2(accel.normalized.y, -accel.normalized.x);
-                    var scale = (float)Math.Sqrt(PhysicsSystem.G * att.mass * physicsSystem.physicsScale / orbitHeight);
+                    var scale = (float)Math.Sqrt(PhysicsSystem.G * att.mass * PhysicsSystem.PhysicsScale / orbitHeight);
                     v *= scale * (0.8f + Random.value * 0.4f);
 
+                    var planetSize = Random.Range(0.3f, 1.5f);
+                    
                     planetTr.position = point;
-                    planetPhysics.mass = Random.value * 4f + 1f;
+                    planetPhysics.mass = Mathf.Pow(planetSize + 1, 3);
                     planetPhysics.initialVelocity = v;
 
                     var planetColor = new Color(
                         Random.value, 
                         Random.value * .5f + .5f, 
                         Random.value * .5f + .5f);
-
-                    var planetSize = Random.Range(0.3f, 1.5f);
 
                     planetTr.localScale = new Vector3(planetSize, planetSize, 1);
                     planetVis.sprite.color = planetColor;
@@ -110,7 +113,7 @@ namespace Utils
                     planetVis.trail.colorGradient.SetKeys(colorKeys, alphaKeys);
 
                     var planet = planetGo.GetComponent<Planet>();
-                    planet.name = NameGenerator.GetRandomPlanetName();
+                    planet.planetName = NameGenerator.GetRandomPlanetName();
 
                     if (Random.value > 0.75f)
                     {

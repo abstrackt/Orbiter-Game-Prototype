@@ -6,13 +6,15 @@ namespace Physics
 {
     public class PhysicsBody : MonoBehaviour
     {
+        public float EscapeVelocity => Mathf.Sqrt(PhysicsSystem.G * mass / interactRadius);
+        
         [NonSerialized] public int bodyIndex = -1;
         [NonSerialized] public PhysicsSystem physicsSystem;
         [NonSerialized] public Attractor currentAttractor;
         public float mass;
         public Vector2 initialVelocity;
-        public int predictionSteps;
-    
+        public float interactRadius;
+
         public bool PhysicsEnabled
         {
             get => physicsSystem.PhysicsEnabled(bodyIndex);
@@ -36,7 +38,7 @@ namespace Physics
 
         public List<Vector2> PredictedTrajectory()
         {
-            return physicsSystem.GetTrajectory(bodyIndex, predictionSteps);
+            return physicsSystem.GetTrajectory(bodyIndex);
         }
     }
 }

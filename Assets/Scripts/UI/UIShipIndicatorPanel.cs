@@ -1,7 +1,7 @@
 ﻿using System;
+using Systems.Spaceship;
 using UnityEngine;
 using UnityEngine.UI;
-using Utils;
 using Visuals;
 
 namespace UI

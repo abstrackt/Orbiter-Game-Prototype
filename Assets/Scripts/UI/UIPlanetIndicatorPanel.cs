@@ -35,7 +35,7 @@ namespace UI
                 
                 var planetPos = closest.planet.transform.position;
                 var screenPos = camera.WorldToScreenPoint(planetPos);
-                planetName.text = closest.planet.name;
+                planetName.text = closest.planet.planetName;
                 transform.position = screenPos;
                 canvasGroup.alpha = Math.Min(_fade, (visibilityThreshold - closest.dist) / visibilityThreshold);
             }

@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Systems.Spaceship;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-namespace Utils
+namespace Visuals
 {
     public class LightspeedEffect : MonoBehaviour
     {

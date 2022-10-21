@@ -22,7 +22,7 @@ namespace Utils
                 if (closest.dist < visitDistance && !visitedStars.Contains(closest.star))
                 {
                     visitedStars.Add(closest.star);
-                    panel.Show(closest.star.name);
+                    panel.Show(closest.star.starName);
                 }
             }
         }

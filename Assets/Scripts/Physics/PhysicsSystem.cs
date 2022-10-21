@@ -7,7 +7,6 @@ namespace Physics
     public class PhysicsSystem : MonoBehaviour
     {
         public List<Attractor> attractors = new List<Attractor>();
-        public float physicsScale = 1;
         public bool defaultEnabled = true;
 
         private List<bool> _enabled;
@@ -17,6 +16,7 @@ namespace Physics
         private PhysicsBody[] _physicsBodies;
 
         public const float G = 6.67f;
+        public const float PhysicsScale = 0.3f;
 
         public void Start()
         {
@@ -78,7 +78,7 @@ namespace Physics
         }
 
         // Gets trajectory of a body based on Kepler solution of 2-body problem
-        public List<Vector2> GetTrajectory(int index, int n)
+        public List<Vector2> GetTrajectory(int index)
         {
             var positions = new List<Vector2>();
 
@@ -92,7 +92,7 @@ namespace Physics
             var r = pos;
             var M = att.mass;
 
-            var mu = G * M * physicsScale;
+            var mu = G * M * PhysicsScale;
 
             var rMag = r.magnitude;
             var vSqMag = v.sqrMagnitude;
@@ -181,7 +181,7 @@ namespace Physics
             var center = new Vector2(temp.x, temp.y);
             var accel = (center - point).normalized;
             var distance = (point - center).magnitude;
-            var magnitude = G * closest.mass * physicsScale / Mathf.Pow(distance, 2);
+            var magnitude = G * closest.mass * PhysicsScale / Mathf.Pow(distance, 2);
             accel.Scale(new Vector2(magnitude, magnitude));
 
             return accel;
