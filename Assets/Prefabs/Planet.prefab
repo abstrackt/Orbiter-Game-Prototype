@@ -115,7 +115,7 @@ MonoBehaviour:
   - {x: -0.48711276, y: 0.026530424, z: 0}
   m_ShapePathHash: -1828319347
   m_Mesh: {fileID: 0}
-  m_InstanceId: -1236
+  m_InstanceId: 101558
 --- !u!96 &49229152340502287
 TrailRenderer:
   serializedVersion: 2
@@ -237,6 +237,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mass: 1
   initialVelocity: {x: 0, y: 5.5}
+  predictionSteps: 0
 --- !u!114 &3894006030422640555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,6 +250,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99b41b2892904bfc8d5fbec500bea9b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shadow: {fileID: 49229152340502283}
   sprite: {fileID: 49229152340502282}
   trail: {fileID: 49229152340502287}
+  name: 
   showThreshold: 100
+  inhabited: 0

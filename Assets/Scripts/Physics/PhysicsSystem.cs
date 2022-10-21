@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -60,15 +61,79 @@ namespace Physics
                     continue;
 
                 var accel = GetNetAcceleration(i);
-                var position = _positions[i];
-                _positions[i] = position
-                                + _velocities[i] * Time.fixedDeltaTime
-                                + .5f * accel * Mathf.Pow(Time.fixedDeltaTime, 2);
+                _positions[i] = GetPosition(_positions[i], _velocities[i], accel);
                 var nextAccel = GetNetAcceleration(i);
-                _velocities[i] = _velocities[i]
-                                 + .5f * (accel + nextAccel) * Time.fixedDeltaTime;
+                _velocities[i] = GetVelocity(_velocities[i], accel, nextAccel);
             }
         }
+
+        private Vector2 GetPosition(Vector2 position, Vector2 velocity, Vector2 accel)
+        {
+            return position + velocity * Time.fixedDeltaTime + accel * (.5f * Mathf.Pow(Time.fixedDeltaTime, 2));
+        }
+
+        private Vector2 GetVelocity(Vector2 velocity, Vector2 accel, Vector2 nextAccel)
+        {
+            return velocity + .5f * (accel + nextAccel) * Time.fixedDeltaTime;
+        }
+
+        // Gets trajectory of a body based on Kepler solution of 2-body problem
+        public List<Vector2> GetTrajectory(int index, int n)
+        {
+            var positions = new List<Vector2>();
+
+            var pos = _positions[index];
+            var v = _velocities[index];
+            var att = GetClosestAttractor(pos);
+            var attPos = (Vector2)att.transform.position;
+            
+            pos -= attPos;
+            
+            var r = pos;
+            var M = att.mass;
+
+            var mu = G * M * physicsScale;
+
+            var rMag = r.magnitude;
+            var vSqMag = v.sqrMagnitude;
+            
+            var vt = (r.x * v.y - r.y * v.x) / rMag;
+            var vr = (r.x * v.x + r.y * v.y) / rMag;
+            
+            var a = mu * rMag / (2 * mu - rMag * vSqMag);
+            
+            var e = Mathf.Sqrt(1 + rMag * vt * vt / mu * (rMag * vSqMag / mu - 2));
+
+            var theta = Mathf.Sign(vt * vr) * Mathf.Acos((a * (1 - e * e) - rMag) / (e * rMag)) - Mathf.Atan2(r.y, r.x);
+
+            Func<float, float> R = x => a * (1 - e * e) / (1 + e * Mathf.Cos(x));
+
+            if (e < 1)
+            {
+                for (float i = -Mathf.PI; i <= Mathf.PI; i += 0.04f)
+                {
+                    var x = R(i) * Mathf.Cos(i + theta);
+                    var y = -R(i) * Mathf.Sin(i + theta);
+                
+                    positions.Add(new Vector2(attPos.x + x, attPos.y + y));
+                }
+                positions.Add(positions[0]);
+            }
+            else
+            {
+                var thetaMax = Math.Acos((a * (1 - e * e) - 200f) / (e * 200f));
+                for (double i = -thetaMax; i < thetaMax; i += 0.04f)
+                {
+                    var x = R((float)i) * Mathf.Cos((float)i + theta);
+                    var y = -R((float)i) * Mathf.Sin((float)i + theta);
+                
+                    positions.Add(new Vector2(attPos.x + x, attPos.y + y));
+                }
+            }
+            
+            return positions;
+        }
+        
 
         private void UpdateDisplay()
         {
@@ -83,25 +148,35 @@ namespace Physics
             }
         }
 
-        public Vector2 Gravity(Vector2 point)
+        private Attractor GetClosestAttractor(Vector2 point)
         {
-            if (attractors.Count <= 0)
-                return Vector2.zero;
-            
             Attractor closest = attractors[0];
-            var pos3 = closest.transform.position;
-            var pos = new Vector2(pos3.x, pos3.y);
+            var pos = (Vector2)closest.transform.position;
             var minDist = (point - pos).magnitude;
             foreach (var attractor in attractors)
             {
-                pos3 = attractor.transform.position;
-                pos = new Vector2(pos3.x, pos3.y);
+                pos = attractor.transform.position;
                 var dist = (point - pos).magnitude;
                 if (dist >= minDist) continue;
                 closest = attractor;
                 minDist = dist;
             }
-            
+
+            return closest;
+        }
+
+        public Vector2 Gravity(Vector2 point)
+        {
+            if (attractors.Count <= 0)
+                return Vector2.zero;
+
+            var closest = GetClosestAttractor(point);
+
+            return Gravity(point, closest);
+        }
+
+        public Vector2 Gravity(Vector2 point, Attractor closest)
+        {
             var temp = closest.transform.position;
             var center = new Vector2(temp.x, temp.y);
             var accel = (center - point).normalized;

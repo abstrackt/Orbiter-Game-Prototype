@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Physics
@@ -10,6 +11,7 @@ namespace Physics
         [NonSerialized] public Attractor currentAttractor;
         public float mass;
         public Vector2 initialVelocity;
+        public int predictionSteps;
     
         public bool PhysicsEnabled
         {
@@ -30,6 +32,11 @@ namespace Physics
         public void AddForce(Vector2 force)
         {
             physicsSystem.AddForce(bodyIndex, force);
+        }
+
+        public List<Vector2> PredictedTrajectory()
+        {
+            return physicsSystem.GetTrajectory(bodyIndex, predictionSteps);
         }
     }
 }

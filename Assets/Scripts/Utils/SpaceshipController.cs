@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Physics;
 using UnityEngine;
 using Visuals;
@@ -8,6 +9,7 @@ namespace Utils
 {
     public class SpaceshipController : MonoBehaviour
     {
+        public List<Vector2> Trajectory => _physicsBody.PredictedTrajectory();
         public Vector2 Velocity => _physicsBody.GetVelocity();
         public float C => (float)Math.Exp(Velocity.magnitude / 40f) - 1f;
         public bool Maneuvering => _maneuvering;
@@ -27,9 +29,11 @@ namespace Utils
         private float _fuel;
         private bool _maneuvering;
         private bool _refueling;
+        private Camera _camera;
 
         public void Start()
         {
+            _camera = Camera.main;
             _physicsBody = gameObject.GetComponent<PhysicsBody>();
             _fuel = maxFuel;
         }
@@ -78,7 +82,7 @@ namespace Utils
             Vector3 mousePos = Input.mousePosition;
             mousePos.z = 5.23f;
 
-            Vector3 objectPos = Camera.main.WorldToScreenPoint(transform.position);
+            Vector3 objectPos = _camera.WorldToScreenPoint(transform.position);
             mousePos.x = mousePos.x - objectPos.x;
             mousePos.y = mousePos.y - objectPos.y;
 

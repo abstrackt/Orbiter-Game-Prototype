@@ -7,11 +7,17 @@ namespace Utils
 {
     public class LightspeedEffect : MonoBehaviour
     {
-        public Camera camera;
         public SpaceshipController controller;
         public VolumeProfile profile;
         public float threshold;
+        
+        private Camera _camera;
 
+        public void Start()
+        {
+            _camera = Camera.main;
+        }
+        
         public void Update()
         {
             var c = controller.C;
@@ -21,9 +27,9 @@ namespace Utils
             if (c >= threshold)
             {
                 aberration.intensity.Override(Mathf.Clamp01((c - threshold)));
-                var viewportPos = camera.WorldToViewportPoint(controller.transform.position);
+                var viewportPos = _camera.WorldToViewportPoint(controller.transform.position);
                 lensDistortion.center.Override(viewportPos);
-                lensDistortion.intensity.Override(-Mathf.Clamp01((c - threshold) * 1000f) / camera.orthographicSize);
+                lensDistortion.intensity.Override(-Mathf.Clamp01((c - threshold) * 1000f) / _camera.orthographicSize);
             }
             else
             {
