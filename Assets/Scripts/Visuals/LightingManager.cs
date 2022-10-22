@@ -16,13 +16,15 @@ namespace Visuals
 
         public void Update()
         {
+            var extendedFrustum = _camera.orthographicSize * _camera.aspect * 1.5f;
             foreach (var planet in map.planets)
             {
-                if (planet.shadow.enabled && _camera.orthographicSize > cullDistance)
+                var dist = ((Vector2)planet.transform.position - (Vector2)_camera.transform.position).magnitude;
+                if (planet.shadow.enabled && (dist > extendedFrustum || _camera.orthographicSize > cullDistance))
                 {
                     planet.shadow.enabled = false;
                 }
-                else if (!planet.shadow.enabled && _camera.orthographicSize <= cullDistance)
+                else if (!planet.shadow.enabled && (dist < extendedFrustum && _camera.orthographicSize <= cullDistance))
                 {
                     planet.shadow.enabled = true;
                 }

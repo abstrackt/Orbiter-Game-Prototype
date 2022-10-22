@@ -7,14 +7,20 @@ namespace Physics
     public class PhysicsBody : MonoBehaviour
     {
         public float EscapeVelocity => Mathf.Sqrt(PhysicsSystem.G * mass / interactRadius);
-        
+
         [NonSerialized] public int bodyIndex = -1;
         [NonSerialized] public PhysicsSystem physicsSystem;
-        [NonSerialized] public Attractor currentAttractor;
+        [NonSerialized] public Renderer bodyRenderer;
         public float mass;
         public Vector2 initialVelocity;
         public float interactRadius;
+        public Attractor cachedClosest;
 
+        public void Awake()
+        {
+            bodyRenderer = GetComponent<Renderer>();
+        }
+        
         public bool PhysicsEnabled
         {
             get => physicsSystem.PhysicsEnabled(bodyIndex);
@@ -38,7 +44,9 @@ namespace Physics
 
         public List<Vector2> PredictedTrajectory()
         {
-            return physicsSystem.GetTrajectory(bodyIndex);
+            var pos = transform.position;
+            var att = physicsSystem.GetClosestAttractor(pos);
+            return physicsSystem.GetTrajectory(bodyIndex, att.transform.position, att.mass);
         }
     }
 }

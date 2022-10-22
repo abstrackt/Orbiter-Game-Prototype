@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Profiling;
 
 namespace Physics
 {
@@ -8,12 +9,14 @@ namespace Physics
     {
         public List<Attractor> attractors = new List<Attractor>();
         public bool defaultEnabled = true;
+        public PhysicsBody playerSpaceship;
 
         private List<bool> _enabled;
         private List<Vector2> _positions;
         private List<Vector2> _velocities;
         private List<List<Vector2>> _forces;
         private PhysicsBody[] _physicsBodies;
+        private bool _cacheInitialized = false;
 
         public const float G = 6.67f;
         public const float PhysicsScale = 0.3f;
@@ -42,8 +45,15 @@ namespace Physics
         // This gets called in a frame-independent update loop
         public void FixedUpdate()
         {
+            if (!_cacheInitialized)
+            {
+                RefreshClosestAttractors();
+            }
+            
+            Profiler.BeginSample("Physics loop");
             Leapfrog();
             ResetForces();
+            Profiler.EndSample();
         }
 
         // This just updates the display
@@ -51,18 +61,40 @@ namespace Physics
         {
             UpdateDisplay();
         }
+        
+        public void RefreshClosestAttractors()
+        {
+            _cacheInitialized = true;
+            for (int i = 0; i < _physicsBodies.Length; i++)
+            {
+                var closest = GetClosestAttractor(_positions[i]);
+                _physicsBodies[i].cachedClosest = closest;
+            }
+        }
 
         // Calculating velocities and positions with leapfrog integration. Ribbit.
         private void Leapfrog()
         {
+            var closestToShip = GetClosestAttractor(_positions[playerSpaceship.bodyIndex]);
+            
             for (int i = 0; i < _physicsBodies.Length; i++)
             {
                 if (!_enabled[i])
                     continue;
 
-                var accel = GetNetAcceleration(i);
+                var body = _physicsBodies[i];
+                
+                if (!body.bodyRenderer.isVisible && 
+                    body.cachedClosest != null && 
+                    body.cachedClosest != closestToShip && 
+                    body != playerSpaceship)
+                    continue;
+
+                var closest = GetClosestAttractor(_positions[i]);
+                
+                var accel = GetNetAcceleration(i, closest);
                 _positions[i] = GetPosition(_positions[i], _velocities[i], accel);
-                var nextAccel = GetNetAcceleration(i);
+                var nextAccel = GetNetAcceleration(i, closest);
                 _velocities[i] = GetVelocity(_velocities[i], accel, nextAccel);
             }
         }
@@ -78,19 +110,17 @@ namespace Physics
         }
 
         // Gets trajectory of a body based on Kepler solution of 2-body problem
-        public List<Vector2> GetTrajectory(int index)
+        public List<Vector2> GetTrajectory(int index, Vector2 center, float mass)
         {
             var positions = new List<Vector2>();
 
             var pos = _positions[index];
             var v = _velocities[index];
-            var att = GetClosestAttractor(pos);
-            var attPos = (Vector2)att.transform.position;
-            
-            pos -= attPos;
+
+            pos -= center;
             
             var r = pos;
-            var M = att.mass;
+            var M = mass;
 
             var mu = G * M * PhysicsScale;
 
@@ -115,7 +145,7 @@ namespace Physics
                     var x = R(i) * Mathf.Cos(i + theta);
                     var y = -R(i) * Mathf.Sin(i + theta);
                 
-                    positions.Add(new Vector2(attPos.x + x, attPos.y + y));
+                    positions.Add(new Vector2(center.x + x, center.y + y));
                 }
                 positions.Add(positions[0]);
             }
@@ -127,7 +157,7 @@ namespace Physics
                     var x = R((float)i) * Mathf.Cos((float)i + theta);
                     var y = -R((float)i) * Mathf.Sin((float)i + theta);
                 
-                    positions.Add(new Vector2(attPos.x + x, attPos.y + y));
+                    positions.Add(new Vector2(center.x + x, center.y + y));
                 }
             }
             
@@ -148,8 +178,14 @@ namespace Physics
             }
         }
 
-        private Attractor GetClosestAttractor(Vector2 point)
+        public Attractor GetClosestAttractor(Vector2 point)
         {
+            if (attractors.Count <= 0)
+            {
+                return null;
+            }
+            
+            Profiler.BeginSample("Closest attractor (brute)");
             Attractor closest = attractors[0];
             var pos = (Vector2)closest.transform.position;
             var minDist = (point - pos).magnitude;
@@ -161,17 +197,13 @@ namespace Physics
                 closest = attractor;
                 minDist = dist;
             }
-
+            Profiler.EndSample();
             return closest;
         }
 
         public Vector2 Gravity(Vector2 point)
         {
-            if (attractors.Count <= 0)
-                return Vector2.zero;
-
             var closest = GetClosestAttractor(point);
-
             return Gravity(point, closest);
         }
 
@@ -187,12 +219,12 @@ namespace Physics
             return accel;
         }
 
-        private Vector2 GetNetAcceleration(int index)
+        private Vector2 GetNetAcceleration(int index, Attractor closest)
         {
             if (index < _forces.Count && index >= 0)
             {
                 var point = _positions[index];
-                var net = Gravity(point);
+                var net = Gravity(point, closest);
                 var mass = _physicsBodies[index].mass;
 
                 for (int j = 0; j < _forces[index].Count; j++)

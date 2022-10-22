@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Utils
 {
-    public class AdaptiveCameraZoom : MonoBehaviour
+    public class CameraManager : MonoBehaviour
     {
         public FocusController focus;
         public float minZoom, maxZoom;

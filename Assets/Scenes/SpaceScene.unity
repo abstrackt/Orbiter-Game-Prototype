@@ -5999,6 +5999,10 @@ PrefabInstance:
       propertyPath: inhabited
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3894006030422640555, guid: a716e433d971946bd8e8ec19d479372d, type: 3}
+      propertyPath: planetName
+      value: Saturn
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a716e433d971946bd8e8ec19d479372d, type: 3}
 --- !u!4 &516392276 stripped
@@ -6340,6 +6344,170 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!43 &576926517
+Mesh:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  serializedVersion: 10
+  m_SubMeshes:
+  - serializedVersion: 2
+    firstByte: 0
+    indexCount: 42
+    topology: 0
+    baseVertex: 0
+    firstVertex: 0
+    vertexCount: 16
+    localAABB:
+      m_Center: {x: -0.006415367, y: -0.0048116148, z: 0}
+      m_Extent: {x: 0.4488802, y: 0.2513992, z: 0}
+  m_Shapes:
+    vertices: []
+    shapes: []
+    channels: []
+    fullWeights: []
+  m_BindPose: []
+  m_BoneNameHashes: 
+  m_RootBoneNameHash: 0
+  m_BonesAABB: []
+  m_VariableBoneCountWeights:
+    m_Data: 
+  m_MeshCompression: 0
+  m_IsReadable: 1
+  m_KeepVertices: 1
+  m_KeepIndices: 1
+  m_IndexFormat: 0
+  m_IndexBuffer: 00000100020000000300010004000300000004000500030006000500040005000600070002000800000000000900040001000a00020003000b00010005000c00030004000d00060007000e00050006000f000700
+  m_VertexData:
+    serializedVersion: 3
+    m_VertexCount: 16
+    m_Channels:
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 3
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 12
+      format: 0
+      dimension: 4
+    - stream: 0
+      offset: 28
+      format: 0
+      dimension: 4
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    m_DataSize: 704
+    _typelessdata: 80ee653e065fff3d000000008af1f9be6b6c5fbf0000000000000080c08ae23e8064373b00f0d83b74817c3e80dc723e47bf01be00000000b19508bff184583f0000008000000080008e023d102e83bec08ae23e8064373bc08ae23e8064373b00000000b19508bff184583f0000008000000080c08ae23e8064373bc08ae23e8064373b008e023d102e83be000000007ecef73e8f04603f0000008000000080008e023d102e83be008e023d102e83be00f0d83b74817c3e000000008af1f9be6b6c5fbf000000000000008000f0d83b74817c3e00f0d83b74817c3ec0ca58be38cdf8bd000000007ecef73e8f04603f0000008000000080801ce9be80ee583c008e023d102e83bec0b865be2e08053e00000000c5dce63eaa7f64bf000000800000008000f0d83b74817c3e801ce9be80ee583c801ce9be80ee583c00000000c5dce63eaa7f64bf0000008000000080801ce9be80ee583c801ce9be80ee583cc08ae23e8064373b000000008af1f9be6b6c5fbf0000000000000080c08ae23e8064373bc08ae23e8064373b80ee653e065fff3d000000008af1f9be6b6c5fbf0000000000000080c08ae23e8064373b00f0d83b74817c3e80dc723e47bf01be00000000b19508bff184583f0000008000000080008e023d102e83bec08ae23e8064373b008e023d102e83be00000000b19508bff184583f0000008000000080008e023d102e83be008e023d102e83bec0ca58be38cdf8bd000000007ecef73e8f04603f0000008000000080801ce9be80ee583c008e023d102e83be00f0d83b74817c3e00000000c5dce63eaa7f64bf000000800000008000f0d83b74817c3e00f0d83b74817c3e801ce9be80ee583c000000007ecef73e8f04603f0000008000000080801ce9be80ee583c801ce9be80ee583cc0b865be2e08053e00000000c5dce63eaa7f64bf000000800000008000f0d83b74817c3e801ce9be80ee583c
+  m_CompressedMesh:
+    m_Vertices:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UV:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Normals:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Tangents:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Weights:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_NormalSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_TangentSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_FloatColors:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_BoneIndices:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Triangles:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UVInfo: 0
+  m_LocalAABB:
+    m_Center: {x: -0.006415367, y: -0.0048116148, z: 0}
+    m_Extent: {x: 0.4488802, y: 0.2513992, z: 0}
+  m_MeshUsageFlags: 0
+  m_BakedConvexCollisionMesh: 
+  m_BakedTriangleCollisionMesh: 
+  m_MeshMetrics[0]: 1
+  m_MeshMetrics[1]: 1
+  m_MeshOptimizationFlags: 1
+  m_StreamData:
+    serializedVersion: 2
+    offset: 0
+    size: 0
+    path: 
 --- !u!1001 &598111187
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6462,6 +6630,10 @@ PrefabInstance:
     - target: {fileID: 3894006030422640555, guid: a716e433d971946bd8e8ec19d479372d, type: 3}
       propertyPath: inhabited
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3894006030422640555, guid: a716e433d971946bd8e8ec19d479372d, type: 3}
+      propertyPath: planetName
+      value: Uranus
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a716e433d971946bd8e8ec19d479372d, type: 3}
@@ -6962,7 +7134,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mass: 1
   initialVelocity: {x: 0, y: -1.5}
-  predictionSteps: 2000
+  interactRadius: 0
+  cachedClosest: {fileID: 0}
 --- !u!114 &808879754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8167,6 +8340,10 @@ PrefabInstance:
       propertyPath: inhabited
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3894006030422640555, guid: a716e433d971946bd8e8ec19d479372d, type: 3}
+      propertyPath: planetName
+      value: Mars
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a716e433d971946bd8e8ec19d479372d, type: 3}
 --- !u!4 &1070941835 stripped
@@ -8454,8 +8631,8 @@ MonoBehaviour:
   - {x: 0.44246483, y: 0.0027983487, z: 0}
   - {x: 0.006620407, y: 0.24658757, z: 0}
   m_ShapePathHash: -1683989307
-  m_Mesh: {fileID: 1976817961}
-  m_InstanceId: 19984
+  m_Mesh: {fileID: 576926517}
+  m_InstanceId: 20006
 --- !u!212 &1167080264
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -13748,6 +13925,10 @@ PrefabInstance:
       propertyPath: inhabited
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3894006030422640555, guid: a716e433d971946bd8e8ec19d479372d, type: 3}
+      propertyPath: planetName
+      value: Jupiter
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a716e433d971946bd8e8ec19d479372d, type: 3}
 --- !u!4 &1497274407 stripped
@@ -13877,6 +14058,10 @@ PrefabInstance:
     - target: {fileID: 3894006030422640555, guid: a716e433d971946bd8e8ec19d479372d, type: 3}
       propertyPath: inhabited
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3894006030422640555, guid: a716e433d971946bd8e8ec19d479372d, type: 3}
+      propertyPath: planetName
+      value: Neptune
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a716e433d971946bd8e8ec19d479372d, type: 3}
@@ -14751,6 +14936,10 @@ PrefabInstance:
       propertyPath: inhabited
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3894006030422640555, guid: a716e433d971946bd8e8ec19d479372d, type: 3}
+      propertyPath: planetName
+      value: Pluto
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a716e433d971946bd8e8ec19d479372d, type: 3}
 --- !u!4 &1720800117 stripped
@@ -14995,6 +15184,10 @@ PrefabInstance:
       propertyPath: inhabited
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3894006030422640555, guid: a716e433d971946bd8e8ec19d479372d, type: 3}
+      propertyPath: planetName
+      value: Venus
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a716e433d971946bd8e8ec19d479372d, type: 3}
 --- !u!4 &1801158503 stripped
@@ -15013,170 +15206,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99b41b2892904bfc8d5fbec500bea9b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!43 &1976817961
-Mesh:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  serializedVersion: 10
-  m_SubMeshes:
-  - serializedVersion: 2
-    firstByte: 0
-    indexCount: 42
-    topology: 0
-    baseVertex: 0
-    firstVertex: 0
-    vertexCount: 16
-    localAABB:
-      m_Center: {x: -0.006415367, y: -0.0048116148, z: 0}
-      m_Extent: {x: 0.4488802, y: 0.2513992, z: 0}
-  m_Shapes:
-    vertices: []
-    shapes: []
-    channels: []
-    fullWeights: []
-  m_BindPose: []
-  m_BoneNameHashes: 
-  m_RootBoneNameHash: 0
-  m_BonesAABB: []
-  m_VariableBoneCountWeights:
-    m_Data: 
-  m_MeshCompression: 0
-  m_IsReadable: 1
-  m_KeepVertices: 1
-  m_KeepIndices: 1
-  m_IndexFormat: 0
-  m_IndexBuffer: 00000100020000000300010004000300000004000500030006000500040005000600070002000800000000000900040001000a00020003000b00010005000c00030004000d00060007000e00050006000f000700
-  m_VertexData:
-    serializedVersion: 3
-    m_VertexCount: 16
-    m_Channels:
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 3
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 12
-      format: 0
-      dimension: 4
-    - stream: 0
-      offset: 28
-      format: 0
-      dimension: 4
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    m_DataSize: 704
-    _typelessdata: 80ee653e065fff3d000000008af1f9be6b6c5fbf0000000000000080c08ae23e8064373b00f0d83b74817c3e80dc723e47bf01be00000000b19508bff184583f0000008000000080008e023d102e83bec08ae23e8064373bc08ae23e8064373b00000000b19508bff184583f0000008000000080c08ae23e8064373bc08ae23e8064373b008e023d102e83be000000007ecef73e8f04603f0000008000000080008e023d102e83be008e023d102e83be00f0d83b74817c3e000000008af1f9be6b6c5fbf000000000000008000f0d83b74817c3e00f0d83b74817c3ec0ca58be38cdf8bd000000007ecef73e8f04603f0000008000000080801ce9be80ee583c008e023d102e83bec0b865be2e08053e00000000c5dce63eaa7f64bf000000800000008000f0d83b74817c3e801ce9be80ee583c801ce9be80ee583c00000000c5dce63eaa7f64bf0000008000000080801ce9be80ee583c801ce9be80ee583cc08ae23e8064373b000000008af1f9be6b6c5fbf0000000000000080c08ae23e8064373bc08ae23e8064373b80ee653e065fff3d000000008af1f9be6b6c5fbf0000000000000080c08ae23e8064373b00f0d83b74817c3e80dc723e47bf01be00000000b19508bff184583f0000008000000080008e023d102e83bec08ae23e8064373b008e023d102e83be00000000b19508bff184583f0000008000000080008e023d102e83be008e023d102e83bec0ca58be38cdf8bd000000007ecef73e8f04603f0000008000000080801ce9be80ee583c008e023d102e83be00f0d83b74817c3e00000000c5dce63eaa7f64bf000000800000008000f0d83b74817c3e00f0d83b74817c3e801ce9be80ee583c000000007ecef73e8f04603f0000008000000080801ce9be80ee583c801ce9be80ee583cc0b865be2e08053e00000000c5dce63eaa7f64bf000000800000008000f0d83b74817c3e801ce9be80ee583c
-  m_CompressedMesh:
-    m_Vertices:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_UV:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Normals:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Tangents:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Weights:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_NormalSigns:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_TangentSigns:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_FloatColors:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_BoneIndices:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Triangles:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_UVInfo: 0
-  m_LocalAABB:
-    m_Center: {x: -0.006415367, y: -0.0048116148, z: 0}
-    m_Extent: {x: 0.4488802, y: 0.2513992, z: 0}
-  m_MeshUsageFlags: 0
-  m_BakedConvexCollisionMesh: 
-  m_BakedTriangleCollisionMesh: 
-  m_MeshMetrics[0]: 1
-  m_MeshMetrics[1]: 1
-  m_MeshOptimizationFlags: 1
-  m_StreamData:
-    serializedVersion: 2
-    offset: 0
-    size: 0
-    path: 
 --- !u!1 &1998264228
 GameObject:
   m_ObjectHideFlags: 0
@@ -15292,8 +15321,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attractors:
   - {fileID: 2140081703}
-  physicsScale: 0.3
   defaultEnabled: 1
+  playerSpaceship: {fileID: 808879753}
 --- !u!43 &2051347923
 Mesh:
   m_ObjectHideFlags: 0
@@ -15581,6 +15610,10 @@ PrefabInstance:
       propertyPath: inhabited
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3894006030422640555, guid: a716e433d971946bd8e8ec19d479372d, type: 3}
+      propertyPath: planetName
+      value: Mercury
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a716e433d971946bd8e8ec19d479372d, type: 3}
 --- !u!4 &2084726210 stripped
@@ -15705,6 +15738,10 @@ PrefabInstance:
       propertyPath: inhabited
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3894006030422640555, guid: a716e433d971946bd8e8ec19d479372d, type: 3}
+      propertyPath: planetName
+      value: Earth
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a716e433d971946bd8e8ec19d479372d, type: 3}
 --- !u!1001 &2032914680307002104
@@ -15716,6 +15753,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -2466739600517051965, guid: 469d32dfbb94845d4a54f6533e43c7eb, type: 3}
       propertyPath: name
+      value: Sol
+      objectReference: {fileID: 0}
+    - target: {fileID: -2466739600517051965, guid: 469d32dfbb94845d4a54f6533e43c7eb, type: 3}
+      propertyPath: starName
       value: Sol
       objectReference: {fileID: 0}
     - target: {fileID: 2032914680281999709, guid: 469d32dfbb94845d4a54f6533e43c7eb, type: 3}

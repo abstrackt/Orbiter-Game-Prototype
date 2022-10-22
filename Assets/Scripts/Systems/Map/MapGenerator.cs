@@ -40,7 +40,6 @@ namespace Systems.Map
                 var starTr = starGo.transform;
                 var starVis = starGo.GetComponent<Star>();
                 var att = starGo.GetComponent<Attractor>();
-                var starPhysics = starGo.GetComponent<PhysicsBody>();
 
                 starTr.position = new Vector3(
                     (Random.value - .5f) * mapSize, 
@@ -55,7 +54,7 @@ namespace Systems.Map
                     (80 + starTemp * 1.5f) / 255f);
                 var starSize = Random.Range(1.5f, 5f);
 
-                starPhysics.mass = Mathf.Pow(starSize + 1f, 3);
+                att.mass = Mathf.Pow(starSize + 1f, 3);
 
                 starVis.sprite.color = starColor;
                 starVis.starLight.color = starColor;
@@ -119,7 +118,7 @@ namespace Systems.Map
                     {
                         planet.inhabited = true;
                     }
-                    
+
                     map.planets.Add(planet);
                 }
             }
