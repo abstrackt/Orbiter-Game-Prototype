@@ -9,8 +9,8 @@ namespace UI
     public class UIShipIndicatorPanel : MonoBehaviour
     {
         public Camera camera;
-        public SpaceshipController controller;
-        public MapDefinition map;
+        public StarSceneSpaceshipController controller;
+        public MapUtils map;
         public Image refuelIcon;
         public CanvasGroup canvasGroup;
         public Transform mousePivot;

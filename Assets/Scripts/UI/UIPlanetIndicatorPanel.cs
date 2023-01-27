@@ -11,11 +11,11 @@ namespace UI
         public CanvasGroup canvasGroup;
         public Image inhabitedIcon;
         public Text planetName;
-        public MapDefinition map;
+        public MapUtils map;
         public float visibilityThreshold;
         
         private float _fade;
-        private Planet _closest;
+        private PlanetVisuals _closest;
 
         public void Update()
         {

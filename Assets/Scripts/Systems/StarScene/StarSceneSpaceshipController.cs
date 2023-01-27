@@ -8,7 +8,7 @@ using Visuals;
 namespace Systems.Spaceship
 {
     [RequireComponent(typeof(PhysicsBody))]
-    public class SpaceshipController : MonoBehaviour
+    public class StarSceneSpaceshipController : MonoBehaviour
     {
         public List<Vector2> Trajectory => _physicsBody.PredictedTrajectory();
         public Vector2 Velocity => _physicsBody.GetVelocity();
@@ -23,7 +23,7 @@ namespace Systems.Spaceship
         public float maxFuel;
         public float consumptionRate;
         public float refuelRange;
-        public MapDefinition map;
+        public MapUtils map;
         [Range(0.05f, 1)] public float dashSpeed;
 
         private PhysicsBody _physicsBody;

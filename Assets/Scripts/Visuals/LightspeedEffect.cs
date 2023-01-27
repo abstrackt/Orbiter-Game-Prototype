@@ -7,7 +7,7 @@ namespace Visuals
 {
     public class LightspeedEffect : MonoBehaviour
     {
-        public SpaceshipController controller;
+        public StarSceneSpaceshipController controller;
         public VolumeProfile profile;
         public float threshold;
         

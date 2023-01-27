@@ -5,13 +5,10 @@ using Utils;
 using Visuals;
 using Random = UnityEngine.Random;
 
-namespace Systems.Map
+namespace Systems
 {
-    public class MapGenerator : MonoBehaviour
+    public class StarSceneMapGenerator : MonoBehaviour
     {
-        [Header("Randomization")] 
-        public int seed = 2137;
-
         [Header("Parameters")] 
         public int starCount;
         public int maxPlanetCount;
@@ -19,26 +16,21 @@ namespace Systems.Map
 
         [Header("Data")] 
         public PhysicsSystem physicsSystem;
-        public Star starPrefab;
-        public Planet planetPrefab;
-        public MapDefinition map;
+        public StarVisuals starVisualsPrefab;
+        public PlanetVisuals planetVisualsPrefab;
+        public MapUtils map;
         public Transform parent;
 
-        public void Start()
-        {
-            GenerateMap(seed);
-        }
-
-        private void GenerateMap(int seed)
+        private void LoadVisuals(int seed)
         {
             Random.InitState(seed);
 
             // Star generation
             for (int i = 0; i < starCount; i++)
             {
-                var starGo = Instantiate(starPrefab.gameObject, parent, true);
+                var starGo = Instantiate(starVisualsPrefab.gameObject, parent, true);
                 var starTr = starGo.transform;
-                var starVis = starGo.GetComponent<Star>();
+                var starVis = starGo.GetComponent<StarVisuals>();
                 var att = starGo.GetComponent<Attractor>();
 
                 starTr.position = new Vector3(
@@ -64,7 +56,7 @@ namespace Systems.Map
 
                 physicsSystem.attractors.Add(att);
 
-                var star = starGo.GetComponent<Star>();
+                var star = starGo.GetComponent<StarVisuals>();
                 star.starName = NameGenerator.GetRandomStarName();
                 map.stars.Add(star);
 
@@ -72,9 +64,9 @@ namespace Systems.Map
 
                 for (int j = 0; j < planets; j++)
                 {
-                    var planetGo = Instantiate(planetPrefab.gameObject, parent, true);
+                    var planetGo = Instantiate(planetVisualsPrefab.gameObject, parent, true);
                     var planetTr = planetGo.transform;
-                    var planetVis = planetGo.GetComponent<Planet>();
+                    var planetVis = planetGo.GetComponent<PlanetVisuals>();
                     var planetPhysics = planetGo.GetComponent<PhysicsBody>();
 
                     var orbitHeight = 5f + Random.value * 40f;
@@ -111,7 +103,7 @@ namespace Systems.Map
                     };
                     planetVis.trail.colorGradient.SetKeys(colorKeys, alphaKeys);
 
-                    var planet = planetGo.GetComponent<Planet>();
+                    var planet = planetGo.GetComponent<PlanetVisuals>();
                     planet.planetName = NameGenerator.GetRandomPlanetName();
 
                     if (Random.value > 0.75f)

@@ -11,7 +11,7 @@ namespace UI
         public Image fuelImage;
         public Text velocityText;
         public Text gravityText;
-        public SpaceshipController controller;
+        public StarSceneSpaceshipController controller;
         public PhysicsSystem physicsSystem;
 
         public void Update()

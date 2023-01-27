@@ -4,7 +4,7 @@ namespace Visuals
 {
     public class LightingManager : MonoBehaviour
     {
-        public MapDefinition map;
+        public MapUtils map;
         public float cullDistance = 150f;
         
         private Camera _camera;

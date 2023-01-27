@@ -1,15 +1,14 @@
 using System;
 using Physics;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering.Universal;
 
 namespace Visuals
 {
     [RequireComponent(typeof(PhysicsBody))]
-    public class Planet : MonoBehaviour
+    public class PlanetVisuals : MonoBehaviour
     {
         [NonSerialized] public Renderer planetRenderer;
-        public ShadowCaster2D shadow;
+        public UnityEngine.Rendering.Universal.ShadowCaster2D shadow;
         public SpriteRenderer sprite;
         public TrailRenderer trail;
         public string planetName;

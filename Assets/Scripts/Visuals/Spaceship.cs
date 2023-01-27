@@ -7,9 +7,9 @@ namespace Visuals
 {
     public class Spaceship : MonoBehaviour
     {
-        public SpaceshipController controller;
+        public StarSceneSpaceshipController controller;
         public ParticleSystem particles;
-        public MapDefinition map;
+        public MapUtils map;
         public float lineWidth = 2f;
         public float trajectoryDrawRange = 200f;
         public Color32 lineColor;

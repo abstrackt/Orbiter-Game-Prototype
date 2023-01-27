@@ -4,17 +4,17 @@ using UnityEngine;
 
 namespace Visuals
 {
-    public class MapDefinition : MonoBehaviour
+    public class MapUtils : MonoBehaviour
     {
-        public (Star star, float dist) ClosestStar => (_closestStar, _starDistance);
-        public (Planet planet, float dist) ClosestPlanet => (_closestPlanet, _planetDistance);
+        public (StarVisuals star, float dist) ClosestStar => (_closestStar, _starDistance);
+        public (PlanetVisuals planet, float dist) ClosestPlanet => (_closestPlanet, _planetDistance);
 
-        public SpaceshipController controller;
-        public List<Planet> planets = new List<Planet>();
-        public List<Star> stars = new List<Star>();
+        public StarSceneSpaceshipController controller;
+        public List<PlanetVisuals> planets = new ();
+        public List<StarVisuals> stars = new ();
 
-        private Star _closestStar;
-        private Planet _closestPlanet;
+        private StarVisuals _closestStar;
+        private PlanetVisuals _closestPlanet;
 
         private float _starDistance;
         private float _planetDistance;

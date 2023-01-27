@@ -8,9 +8,9 @@ namespace Utils
 {
     public class TravelLogger : MonoBehaviour
     {
-        public MapDefinition map;
+        public MapUtils map;
         public UISystemDiscoveredPanel panel;
-        public List<Star> visitedStars = new List<Star>();
+        public List<StarVisuals> visitedStars = new List<StarVisuals>();
         public float visitDistance;
 
         public void Update()

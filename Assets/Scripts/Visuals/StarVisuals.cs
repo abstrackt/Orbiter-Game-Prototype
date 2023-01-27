@@ -1,14 +1,14 @@
 using Physics;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering.Universal;
+
 
 namespace Visuals
 {
     [RequireComponent(typeof(Attractor))]
-    public class Star : MonoBehaviour
+    public class StarVisuals : MonoBehaviour
     {
         public SpriteRenderer sprite;
-        public Light2D starLight;
+        public UnityEngine.Rendering.Universal.Light2D starLight;
         public string starName;
         public Attractor attractor;
     }
