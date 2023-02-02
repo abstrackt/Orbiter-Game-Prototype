@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Physics
+namespace Systems.Physics
 {
     public class Attractor : MonoBehaviour
     {

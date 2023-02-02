@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Physics
+namespace Systems.Physics
 {
     public class PhysicsBody : MonoBehaviour
     {

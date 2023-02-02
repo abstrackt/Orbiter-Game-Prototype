@@ -1,6 +1,5 @@
-using Physics;
+using Systems.Physics;
 using UnityEngine;
-
 
 namespace Visuals
 {
@@ -9,7 +8,6 @@ namespace Visuals
     {
         public SpriteRenderer sprite;
         public UnityEngine.Rendering.Universal.Light2D starLight;
-        public string starName;
         public Attractor attractor;
     }
 }

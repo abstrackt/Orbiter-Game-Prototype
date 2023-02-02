@@ -1,16 +1,15 @@
 ﻿using System;
-using Systems.Spaceship;
+using Systems;
+using Systems.StarsScene;
 using UnityEngine;
 using UnityEngine.UI;
-using Visuals;
 
 namespace UI
 {
     public class UIShipIndicatorPanel : MonoBehaviour
     {
-        public Camera camera;
-        public StarSceneSpaceshipController controller;
-        public MapUtils map;
+        public StarsSpaceshipController controller;
+        public StarsMapManager map;
         public Image refuelIcon;
         public CanvasGroup canvasGroup;
         public Transform mousePivot;
@@ -19,13 +18,19 @@ namespace UI
 
         private float _fade = 0f;
         private bool _fading = false;
+        private Camera _camera;
 
+        public void Start()
+        {
+            _camera = Camera.main;
+        }
+        
         public void Update()
         {
             var mouseTr = mousePivot.transform;
             var shipPos = controller.transform.position;
             Vector2 mousePos = Input.mousePosition;
-            var screenPos = camera.WorldToScreenPoint(shipPos);
+            var screenPos = _camera.WorldToScreenPoint(shipPos);
             Vector2 mouseDir = mousePos - (Vector2)screenPos;
             var mouseAngle = Vector2.SignedAngle(Vector2.up, mouseDir);
             var mouseRot = mouseTr.eulerAngles;
@@ -40,15 +45,15 @@ namespace UI
 
             if (controller.Refueling)
             {
-                canvasGroup.alpha = Math.Min((controller.refuelRange - map.ClosestPlanet.dist) / controller.refuelRange * 10f, 1);
+                canvasGroup.alpha = Math.Min((controller.refuelRange - map.ClosestPlanetVisuals.dist) / controller.refuelRange * 10f, 1);
             }
-            else if (camera.orthographicSize < visibilityThreshold)
+            else if (_camera.orthographicSize < visibilityThreshold)
             {
                 canvasGroup.alpha = 0;
             }
             else
             {
-                canvasGroup.alpha = Math.Min((camera.orthographicSize - visibilityThreshold) / visibilityThreshold, 1);
+                canvasGroup.alpha = Math.Min((_camera.orthographicSize - visibilityThreshold) / visibilityThreshold, 1);
             }
 
             refuelIcon.enabled = controller.Refueling;

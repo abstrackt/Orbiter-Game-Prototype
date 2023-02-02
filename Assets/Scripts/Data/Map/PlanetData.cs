@@ -1,5 +1,5 @@
 ﻿using System;
-using Physics;
+using Systems.Physics;
 using UnityEngine;
 
 namespace Data.Map
@@ -10,8 +10,9 @@ namespace Data.Map
         public bool Inhabited => population > 0;
         public float SurfaceGravity => PhysicsSystem.G * mass / Mathf.Pow(radius, 2);
         public float HoursInDay => 2 * Mathf.PI / angularVelocity;
-        
-        public Vector3 position;
+
+        public string planetName;
+        public Vector2 initPosition;
         public PlanetType planetType;
         public AtmosphereData atmoData;
         public float age;

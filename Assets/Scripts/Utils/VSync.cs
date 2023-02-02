@@ -1,12 +1,15 @@
 using UnityEngine;
- 
-public class VSync : MonoBehaviour 
+
+namespace Utils
 {
-    public int targetFrameRate = 60;
- 
-    private void Start()
+    public class VSync : MonoBehaviour
     {
-        QualitySettings.vSyncCount = 0;
-        Application.targetFrameRate = targetFrameRate;
+        public int targetFrameRate = 60;
+
+        private void Start()
+        {
+            QualitySettings.vSyncCount = 0;
+            Application.targetFrameRate = targetFrameRate;
+        }
     }
 }

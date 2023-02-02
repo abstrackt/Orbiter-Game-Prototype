@@ -1,13 +1,13 @@
-﻿using Systems.Spaceship;
+﻿using Systems.StarsScene;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-namespace Visuals
+namespace Visuals.StarsScene
 {
     public class LightspeedEffect : MonoBehaviour
     {
-        public StarSceneSpaceshipController controller;
+        public StarsSpaceshipController controller;
         public VolumeProfile profile;
         public float threshold;
         

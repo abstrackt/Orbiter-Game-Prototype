@@ -1,5 +1,6 @@
-﻿using Physics;
-using Systems.Spaceship;
+﻿using Systems;
+using Systems.Physics;
+using Systems.StarsScene;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +12,7 @@ namespace UI
         public Image fuelImage;
         public Text velocityText;
         public Text gravityText;
-        public StarSceneSpaceshipController controller;
+        public StarsSpaceshipController controller;
         public PhysicsSystem physicsSystem;
 
         public void Update()

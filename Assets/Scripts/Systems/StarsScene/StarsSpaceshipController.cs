@@ -1,14 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Physics;
+using Systems.Physics;
 using UnityEngine;
-using Visuals;
 
-namespace Systems.Spaceship
+namespace Systems.StarsScene
 {
     [RequireComponent(typeof(PhysicsBody))]
-    public class StarSceneSpaceshipController : MonoBehaviour
+    public class StarsSpaceshipController : MonoBehaviour
     {
         public List<Vector2> Trajectory => _physicsBody.PredictedTrajectory();
         public Vector2 Velocity => _physicsBody.GetVelocity();
@@ -23,7 +22,7 @@ namespace Systems.Spaceship
         public float maxFuel;
         public float consumptionRate;
         public float refuelRange;
-        public MapUtils map;
+        public StarsMapManager map;
         [Range(0.05f, 1)] public float dashSpeed;
 
         private PhysicsBody _physicsBody;
@@ -89,8 +88,8 @@ namespace Systems.Spaceship
         private void HandleRefuel()
         {
             _refueling = false;
-            var closest = map.ClosestPlanet;
-            if (closest.planet != null && closest.planet.inhabited && closest.dist < refuelRange)
+            var closest = map.ClosestPlanetData;
+            if (closest.planet.Inhabited && closest.dist < refuelRange)
             {
                 Refuel(Time.deltaTime * 10f);
             }

@@ -4,7 +4,8 @@ namespace Data.Map
 {
     public struct StarData
     {
-        public Vector3 position;
+        public string starName;
+        public Vector2 initPosition;
         public StarType starType;
         public float mass;
         public float age;

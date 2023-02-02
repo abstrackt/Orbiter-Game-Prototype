@@ -9,7 +9,7 @@ namespace Systems.Global
     public static class MapGenerator
     {
         // Overload this when you will be creating more physically-correct star generation my beloved <3
-        public static WorldData GenerateWorldData(uint seed, uint stars, uint avgPlanets)
+        public static WorldData GenerateWorldData(uint seed, uint stars, uint avgPlanets, int mapSize)
         {
             var rd = new Random(seed);
 
@@ -32,7 +32,7 @@ namespace Systems.Global
 
                 var star = new StarData
                 {
-                    position = rd.NextFloat3(-2000, 2000),
+                    initPosition = rd.NextFloat2(-mapSize / 2, mapSize /2),
                     age = rd.NextFloat(1, 1450),
                     magneticField = rd.NextFloat(0, 100),
                     starType = (StarType)starTypes.GetValue(rd.NextInt(starTypes.Length - 1)),
@@ -81,7 +81,7 @@ namespace Systems.Global
 
                     var planet = new PlanetData()
                     {
-                        position = star.position + (Vector3)rd.NextFloat3Direction() * rd.NextFloat(2, 20),
+                        initPosition = star.initPosition + (Vector2)rd.NextFloat2Direction() * rd.NextFloat(2, 20),
                         age = rd.NextFloat(0, star.age - 0.5f),
                         angularVelocity = rd.NextFloat(-5, 5),
                         atmoData = atmo,

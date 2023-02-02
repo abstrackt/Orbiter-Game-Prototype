@@ -1,15 +1,16 @@
 ﻿using System.Collections.Generic;
-using Systems.Spaceship;
+using Systems;
+using Systems.StarsScene;
 using UnityEngine;
 using Vectrosity;
 
 namespace Visuals
 {
-    public class Spaceship : MonoBehaviour
+    public class SpaceshipVisuals : MonoBehaviour
     {
-        public StarSceneSpaceshipController controller;
+        public StarsSpaceshipController controller;
         public ParticleSystem particles;
-        public MapUtils map;
+        public StarsMapManager map;
         public float lineWidth = 2f;
         public float trajectoryDrawRange = 200f;
         public Color32 lineColor;
@@ -37,7 +38,7 @@ namespace Visuals
                 emission.rateOverTime = 0;
             }
 
-            if (map.ClosestStar.star != null && map.ClosestStar.dist < trajectoryDrawRange)
+            if (map.ClosestStarVisuals.dist < trajectoryDrawRange)
             {
                 var prediction = controller.Trajectory;
                 _trajectory.points3.Clear();
@@ -47,7 +48,7 @@ namespace Visuals
                     _trajectory.points3.Add(new Vector3(prediction[i].x, prediction[i].y, 1));
                 }
                 var color = lineColor;
-                color.a = (byte)((trajectoryDrawRange - map.ClosestStar.dist) / trajectoryDrawRange * color.a);
+                color.a = (byte)((trajectoryDrawRange - map.ClosestStarVisuals.dist) / trajectoryDrawRange * color.a);
                 _trajectory.Draw3D();
                 _trajectory.SetColor(color);
             }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Profiling;
 
-namespace Physics
+namespace Systems.Physics
 {
     public class PhysicsSystem : MonoBehaviour
     {
