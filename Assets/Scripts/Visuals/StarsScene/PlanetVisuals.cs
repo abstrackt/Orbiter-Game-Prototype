@@ -22,6 +22,7 @@ namespace Visuals
             planetRenderer = GetComponent<Renderer>();
         }
 
+        // Optimize shadow casters
         public void Update()
         {
             if (_camera != null)

@@ -15,14 +15,14 @@ namespace Systems.StarsScene
         public GameObject planetPrefab;
         public Transform parent;
 
-        public struct PlanetEntry
+        private struct PlanetEntry
         {
             public PlanetData data;
             public PlanetVisuals visuals;
             public PhysicsBody physics;
         }
         
-        public struct StarEntry
+        private struct StarEntry
         {
             public StarData data;
             public StarVisuals visuals;
@@ -79,17 +79,17 @@ namespace Systems.StarsScene
 
         private void AddSystem(StarSystemData data)
         {
-            
+            // TODO
         }
 
         private void AddPlanet(PlanetData data, StarData star)
         {
-            
+            // TODO
         }
 
         private void AddStar(StarData star)
         {
-            
+            // TODO
         }
     }
 }
