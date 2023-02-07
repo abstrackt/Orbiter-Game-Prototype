@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Data.Ships;
 using Systems.Physics;
 using UnityEngine;
 
@@ -17,14 +18,10 @@ namespace Systems.StarsScene
         public bool Orbiting => _orbiting != null;
         public float FuelPercent => _fuel / maxFuel;
         
-        public float thrust;
-        public float dashRange;
-        public float maxFuel;
-        public float consumptionRate;
-        public float refuelRange;
-        public StarsMapManager map;
         [Range(0.05f, 1)] public float dashSpeed;
 
+        public ShipData stats;
+        public StarsMapManager map;
         private PhysicsBody _physicsBody;
         private (Vector2, Vector2) _dashData;
         private float _fuel;
@@ -38,8 +35,9 @@ namespace Systems.StarsScene
             _camera = Camera.main;
             _orbiting = null;
             _physicsBody = gameObject.GetComponent<PhysicsBody>();
-            _fuel = maxFuel;
         }
+        
+        public void Initialize(ShipData data, )
 
         public void Refuel(float value)
         {

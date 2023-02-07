@@ -1,19 +1,19 @@
 using System.Collections.Generic;
 using Data.Map;
+using Systems.Global;
 using Systems.Physics;
 using UnityEngine;
 using Visuals;
 
 namespace Systems.StarsScene
 {
-    public class StarsMapManager : MonoBehaviour
+    public class StarsMapManager : SingletonMonoBehaviour<StarsMapManager>
     {
-        [Header("Data")] 
-        public StarsSpaceshipController controller;
-        public PhysicsSystem physicsSystem;
-        public GameObject starPrefab;
-        public GameObject planetPrefab;
-        public Transform parent;
+        private StarsSpaceshipController _controller;
+        private PhysicsSystem _physicsSystem;
+        private GameObject _starPrefab;
+        private GameObject _planetPrefab;
+        private Transform _parent;
 
         private struct PlanetEntry
         {
@@ -51,7 +51,7 @@ namespace Systems.StarsScene
             foreach (var planet in _planets)
             {
                 var planetPos = planet.visuals.transform.position;
-                var shipPos = controller.transform.position;
+                var shipPos = _controller.transform.position;
                 var distance = (planetPos - shipPos).magnitude;
 
                 if (distance < _planetDistance)
@@ -66,7 +66,7 @@ namespace Systems.StarsScene
             foreach (var star in _stars)
             {
                 var starPos = star.visuals.transform.position;
-                var shipPos = controller.transform.position;
+                var shipPos = _controller.transform.position;
                 var distance = (starPos - shipPos).magnitude;
 
                 if (distance < _starDistance)
