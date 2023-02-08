@@ -29,7 +29,6 @@ namespace Systems.Global
             if (this != Instance)
             {
                 Destroy(gameObject);
-                return;
             }
         }
     }

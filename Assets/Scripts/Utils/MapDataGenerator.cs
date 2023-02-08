@@ -4,7 +4,7 @@ using Data.Map;
 using UnityEngine;
 using Random = Unity.Mathematics.Random;
 
-namespace Systems.Global
+namespace Utils
 {
     public static class MapGenerator
     {

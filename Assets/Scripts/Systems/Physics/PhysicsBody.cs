@@ -12,8 +12,8 @@ namespace Systems.Physics
         [NonSerialized] public PhysicsSystem physicsSystem;
         [NonSerialized] public Renderer bodyRenderer;
         public float mass;
-        public Vector2 initialVelocity;
         public float interactRadius;
+        public Vector2 initialVelocity;
         public Attractor cachedClosest;
 
         public void Awake()

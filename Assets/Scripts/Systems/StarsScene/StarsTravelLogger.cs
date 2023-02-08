@@ -7,17 +7,23 @@ namespace Systems.Global
 {
     public class StarsTravelLogger : MonoBehaviour
     {
-        public StarsMapManager map;
-        public List<StarData> visitedStars = new ();
-        public float visitDistance;
+        private StarsMapManager _map;
+        private List<StarData> _visitedStars = new ();
+        private float _visitDistance;
 
+        public void Start()
+        {
+            var data = GameDataManager.Instance;
+            _visitDistance = data.stars.starVisitedDistance;
+        }
+        
         public void Update()
         {
-            var closest = map.ClosestStarData;
+            var closest = _map.ClosestStarData;
             
-            if (closest.dist < visitDistance && !visitedStars.Contains(closest.star))
+            if (closest.dist < _visitDistance && !_visitedStars.Contains(closest.star))
             {
-                visitedStars.Add(closest.star);
+                _visitedStars.Add(closest.star);
             }
         }
     }

@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
+using Systems.Global;
 using UnityEngine;
 using UnityEngine.Profiling;
 
 namespace Systems.Physics
 {
-    public class PhysicsSystem : MonoBehaviour
+    public class PhysicsSystem : SingletonMonoBehaviour<PhysicsSystem>
     {
         public List<Attractor> attractors = new List<Attractor>();
         public bool defaultEnabled = true;

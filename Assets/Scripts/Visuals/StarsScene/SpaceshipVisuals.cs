@@ -1,46 +1,48 @@
 ﻿using System.Collections.Generic;
-using Systems;
 using Systems.StarsScene;
 using UnityEngine;
 using Vectrosity;
 
-namespace Visuals
+namespace Visuals.StarsScene
 {
     public class SpaceshipVisuals : MonoBehaviour
     {
-        public StarsSpaceshipController controller;
         public ParticleSystem particles;
-        public StarsMapManager map;
         public float lineWidth = 2f;
         public float trajectoryDrawRange = 200f;
         public Color32 lineColor;
 
+        private StarsSpaceshipController _controller;
+        private StarsMapManager _map;
         private VectorLine _trajectory;
 
         public void Start()
         {
             _trajectory = new VectorLine("Trajectory", new List<Vector3>(), lineWidth, LineType.Discrete);
             _trajectory.joins = Joins.Fill;
+
+            _controller = StarsSpaceshipController.Instance;
+            _map = StarsMapManager.Instance;
         }
         
         public void Update()
         {
-            if (controller.Maneuvering)
+            if (_controller.Maneuvering)
             {
                 if (!particles.isPlaying)
                     particles.Play();
                 var emission = particles.emission;
                 emission.rateOverTime = 20;
             }
-            else if (!controller.Maneuvering)
+            else if (!_controller.Maneuvering)
             {
                 var emission = particles.emission;
                 emission.rateOverTime = 0;
             }
 
-            if (map.ClosestStarVisuals.dist < trajectoryDrawRange)
+            if (_map.ClosestStarVisuals.dist < trajectoryDrawRange)
             {
-                var prediction = controller.Trajectory;
+                var prediction = _controller.Trajectory;
                 _trajectory.points3.Clear();
                 for (int i = 1; i < prediction.Count; i++)
                 {
@@ -48,7 +50,7 @@ namespace Visuals
                     _trajectory.points3.Add(new Vector3(prediction[i].x, prediction[i].y, 1));
                 }
                 var color = lineColor;
-                color.a = (byte)((trajectoryDrawRange - map.ClosestStarVisuals.dist) / trajectoryDrawRange * color.a);
+                color.a = (byte)((trajectoryDrawRange - _map.ClosestStarVisuals.dist) / trajectoryDrawRange * color.a);
                 _trajectory.Draw3D();
                 _trajectory.SetColor(color);
             }

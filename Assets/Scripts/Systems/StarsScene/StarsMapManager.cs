@@ -4,16 +4,18 @@ using Systems.Global;
 using Systems.Physics;
 using UnityEngine;
 using Visuals;
+using Visuals.StarsScene;
 
 namespace Systems.StarsScene
 {
     public class StarsMapManager : SingletonMonoBehaviour<StarsMapManager>
     {
+        public GameObject starPrefab;
+        public GameObject planetPrefab;
+        public Transform parent;
+        
         private StarsSpaceshipController _controller;
-        private PhysicsSystem _physicsSystem;
-        private GameObject _starPrefab;
-        private GameObject _planetPrefab;
-        private Transform _parent;
+        private PhysicsSystem _physics;
 
         private struct PlanetEntry
         {
@@ -43,6 +45,12 @@ namespace Systems.StarsScene
 
         private float _starDistance;
         private float _planetDistance;
+
+        public void Start()
+        {
+            _controller = StarsSpaceshipController.Instance;
+            _physics = PhysicsSystem.Instance;
+        }
         
         public void Update()
         {

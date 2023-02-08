@@ -1,14 +1,13 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Data.Ships;
+using Systems.Global;
 using Systems.Physics;
 using UnityEngine;
 
 namespace Systems.StarsScene
 {
     [RequireComponent(typeof(PhysicsBody))]
-    public class StarsSpaceshipController : MonoBehaviour
+    public class StarsSpaceshipController : SingletonMonoBehaviour<StarsSpaceshipController>
     {
         public List<Vector2> Trajectory => _physicsBody.PredictedTrajectory();
         public Vector2 Velocity => _physicsBody.GetVelocity();
@@ -16,12 +15,10 @@ namespace Systems.StarsScene
         public bool Maneuvering => _maneuvering;
         public bool Refueling => _refueling;
         public bool Orbiting => _orbiting != null;
-        public float FuelPercent => _fuel / maxFuel;
-        
-        [Range(0.05f, 1)] public float dashSpeed;
+        public float FuelPercent => _fuel / _spaceship.Stats.maxFuel;
 
-        public ShipData stats;
-        public StarsMapManager map;
+        private SpaceshipManager _spaceship;
+        private StarsMapManager _map;
         private PhysicsBody _physicsBody;
         private (Vector2, Vector2) _dashData;
         private float _fuel;
@@ -35,26 +32,20 @@ namespace Systems.StarsScene
             _camera = Camera.main;
             _orbiting = null;
             _physicsBody = gameObject.GetComponent<PhysicsBody>();
+            _spaceship = SpaceshipManager.Instance;
         }
-        
-        public void Initialize(ShipData data, )
 
         public void Refuel(float value)
         {
             _refueling = true;
             _fuel += value;
-            _fuel = Mathf.Clamp(_fuel, 0, maxFuel);
+            _fuel = Mathf.Clamp(_fuel, 0, _spaceship.Stats.maxFuel);
         }
 
         public void Update()
         {
             HandleRefuel();
             HandleMovement();
-            
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                StartCoroutine(Dash());
-            }
         }
 
         private bool TryEnterOrbit(PhysicsBody body)
@@ -86,8 +77,8 @@ namespace Systems.StarsScene
         private void HandleRefuel()
         {
             _refueling = false;
-            var closest = map.ClosestPlanetData;
-            if (closest.planet.Inhabited && closest.dist < refuelRange)
+            var closest = _map.ClosestPlanetData;
+            if (closest.planet.Inhabited && closest.dist < _spaceship.Stats.refuelRange)
             {
                 Refuel(Time.deltaTime * 10f);
             }
@@ -103,7 +94,7 @@ namespace Systems.StarsScene
                 if ((vert != 0 || hor != 0) && _fuel > 0)
                 {
                     _maneuvering = true;
-                    _fuel -= consumptionRate * Time.deltaTime;
+                    _fuel -= _spaceship.Stats.consumptionRate * Time.deltaTime;
                     AddThrust(vert, hor);
                 }
                 else
@@ -120,8 +111,8 @@ namespace Systems.StarsScene
             mousePos.z = 5.23f;
 
             Vector3 objectPos = _camera.WorldToScreenPoint(transform.position);
-            mousePos.x = mousePos.x - objectPos.x;
-            mousePos.y = mousePos.y - objectPos.y;
+            mousePos.x -= objectPos.x;
+            mousePos.y -= objectPos.y;
 
             float angle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
@@ -132,36 +123,12 @@ namespace Systems.StarsScene
             // Makes sense, right?
             var forward = transform.right;
             var right = -transform.up;
+            var thrust = _spaceship.Stats.thrust;
             var thrustVector = new Vector2(
                 forward.x * thrust * vert + right.x * thrust * hor,
                 forward.y * thrust * vert + right.y * thrust * hor);
 
             _physicsBody.AddForce(thrustVector);
-        }
-
-        private IEnumerator Dash()
-        {
-            // Don't dash when dashing already
-            if (_physicsBody.PhysicsEnabled)
-            {
-                _dashData = (transform.position, transform.position + transform.right * dashRange);
-                _physicsBody.PhysicsEnabled = false;
-
-                var dashDirection = (_dashData.Item2 - _dashData.Item1).normalized;
-
-                var t = 0f;
-
-                while (t < 1)
-                {
-                    t += dashSpeed * Time.deltaTime * 30f;
-                    transform.position = Vector2.Lerp(_dashData.Item1, _dashData.Item2, t);
-                    yield return null;
-                }
-
-                var speed = _physicsBody.GetVelocity().magnitude;
-                _physicsBody.VelocityOverride(speed * dashDirection);
-                _physicsBody.PhysicsEnabled = true;
-            }
         }
     }
 }

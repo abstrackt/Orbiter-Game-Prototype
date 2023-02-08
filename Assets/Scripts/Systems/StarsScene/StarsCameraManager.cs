@@ -1,11 +1,12 @@
 using System;
+using Systems.Physics;
 using UnityEngine;
 
-namespace Utils
+namespace Systems.StarsScene
 {
-    public class CameraManager : MonoBehaviour
+    [RequireComponent(typeof(Camera))]
+    public class StarsCameraManager : MonoBehaviour
     {
-        public FocusController focus;
         public float minZoom, maxZoom;
         public float lerpSpeed;
         public float slerpThreshold;
@@ -15,17 +16,15 @@ namespace Utils
         private Camera _camera;
         private float _targetZoom;
         private Vector3 _targetPos;
+        private Transform _anchored;
+        private PhysicsSystem _physics;
+        private StarsMapManager _map;
 
         public void Start()
         {
-            if (!TryGetComponent(out _camera))
-            {
-                throw new MissingComponentException(
-                    "Adaptive camera zoom needs a camera " +
-                    "to be attached in order to work.");
-            }
-
-            _camera.transform.position = focus.Anchored + new Vector3(0, 0, -10);
+            _map = StarsMapManager.Instance;
+            _anchored = StarsSpaceshipController.Instance.transform;
+            _camera.transform.position = _anchored.position + new Vector3(0, 0, -10);
         }
 
         public void Update()
@@ -37,14 +36,20 @@ namespace Utils
         // This assumes camera is aligned with the axes of the scene
         private void CalculateZoom()
         {
-            Vector2 fromCamera = focus.Followed - focus.Anchored;
+            var followed = (Vector2)_map.ClosestStarVisuals.star.transform.position;
+            var anchored = (Vector2)_anchored.position;
+            
+            Vector2 fromCamera = followed - anchored;
             _targetZoom = fromCamera.magnitude * (1 + tolerance);
         }
 
         private void AdjustCamera()
         {
-            var dist = Math.Min((focus.Followed - focus.Anchored).magnitude, followDist);
-            _targetPos = (focus.Anchored * (followDist - dist) + focus.Followed * dist) / followDist;
+            var followed = (Vector2)_map.ClosestStarVisuals.star.transform.position;
+            var anchored = (Vector2)_anchored.position;
+
+            var dist = Math.Min((followed - anchored).magnitude, followDist);
+            _targetPos = (anchored * (followDist - dist) + followed * dist) / followDist;
             _targetZoom = Mathf.Clamp(_targetZoom, minZoom, maxZoom);
 
             var step = lerpSpeed;

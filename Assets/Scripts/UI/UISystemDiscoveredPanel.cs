@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Systems.Global;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace UI
@@ -13,6 +14,8 @@ namespace UI
         {
             canvasGroup.alpha = 0;
             animator.enabled = false;
+            var events = GameEventSystem.Instance;
+            events.OnSystemDiscovered += Show;
         }
 
         public void Show(string name)
@@ -21,6 +24,12 @@ namespace UI
             animator.enabled = true;
             animator.Play("LocationAnimation", 0, 0);
             systemName.text = name;
+        }
+
+        public void OnDestroy()
+        {
+            var events = GameEventSystem.Instance;
+            events.OnSystemDiscovered -= Show;
         }
     }
 }

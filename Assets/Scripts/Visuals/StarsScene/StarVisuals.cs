@@ -1,7 +1,7 @@
 using Systems.Physics;
 using UnityEngine;
 
-namespace Visuals
+namespace Visuals.StarsScene
 {
     [RequireComponent(typeof(Attractor))]
     public class StarVisuals : MonoBehaviour

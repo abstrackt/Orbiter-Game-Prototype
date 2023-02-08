@@ -2,14 +2,12 @@ using System;
 using Systems.Physics;
 using UnityEngine;
 
-namespace Visuals
+namespace Visuals.StarsScene
 {
     [RequireComponent(typeof(PhysicsBody))]
     public class PlanetVisuals : MonoBehaviour
     {
-        [NonSerialized] public Renderer planetRenderer;
         public UnityEngine.Rendering.Universal.ShadowCaster2D shadow;
-        public SpriteRenderer sprite;
         public TrailRenderer trail;
         public float trailCull = 100f;
         public float shadowCull = 150f;
@@ -19,7 +17,6 @@ namespace Visuals
         private void Start()
         {
             _camera = Camera.main;
-            planetRenderer = GetComponent<Renderer>();
         }
 
         // Optimize shadow casters
