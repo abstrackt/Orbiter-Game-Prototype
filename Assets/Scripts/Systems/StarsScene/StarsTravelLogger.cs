@@ -15,6 +15,7 @@ namespace Systems.Global
         {
             var data = GameDataManager.Instance;
             _visitDistance = data.stars.starVisitedDistance;
+            _map = StarsMapManager.Instance;
         }
         
         public void Update()
@@ -24,6 +25,7 @@ namespace Systems.Global
             if (closest.dist < _visitDistance && !_visitedStars.Contains(closest.star))
             {
                 _visitedStars.Add(closest.star);
+                GameEventSystem.Instance.OnSystemDiscovered?.Invoke(closest.star.starName);
             }
         }
     }

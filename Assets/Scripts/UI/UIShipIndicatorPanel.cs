@@ -3,10 +3,11 @@ using Systems.Global;
 using Systems.StarsScene;
 using UnityEngine;
 using UnityEngine.UI;
+using Utils;
 
 namespace UI
 {
-    public class UIShipIndicatorPanel : MonoBehaviour
+    public class UIShipIndicatorPanel : UIPanel
     {
         public Image refuelIcon;
         public CanvasGroup canvasGroup;
@@ -21,6 +22,16 @@ namespace UI
         private StarsMapManager _map;
         private SpaceshipManager _spaceship;
 
+        public override void Initialize(GameEventSystem events)
+        {
+            
+        }
+
+        public override void Deinitialize(GameEventSystem events)
+        {
+            
+        }
+        
         public void Start()
         {
             _camera = Camera.main;

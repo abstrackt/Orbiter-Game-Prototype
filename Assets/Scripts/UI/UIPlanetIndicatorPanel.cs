@@ -1,13 +1,15 @@
 ﻿using System;
+using Systems.Global;
 using Systems.StarsScene;
 using UnityEngine;
 using UnityEngine.UI;
+using Utils;
 using Visuals;
 using Visuals.StarsScene;
 
 namespace UI
 {
-    public class UIPlanetIndicatorPanel : MonoBehaviour
+    public class UIPlanetIndicatorPanel : UIPanel
     {
         public CanvasGroup canvasGroup;
         public Image inhabitedIcon;
@@ -19,6 +21,16 @@ namespace UI
         private Camera _camera;
         private StarsMapManager _map;
 
+        public override void Initialize(GameEventSystem events)
+        {
+            
+        }
+
+        public override void Deinitialize(GameEventSystem events)
+        {
+            
+        }
+        
         public void Start()
         {
             _camera = Camera.main;

@@ -33,6 +33,8 @@ namespace Systems.StarsScene
             _orbiting = null;
             _physicsBody = gameObject.GetComponent<PhysicsBody>();
             _spaceship = SpaceshipManager.Instance;
+            _map = StarsMapManager.Instance;
+            _fuel = _spaceship.Stats.maxFuel;
         }
 
         public void Refuel(float value)

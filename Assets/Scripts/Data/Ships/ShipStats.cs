@@ -6,7 +6,6 @@ namespace Data.Ships
     public class ShipStats : ScriptableObject
     {
         public float thrust;
-        public float dashRange;
         public float maxFuel;
         public float consumptionRate;
         public float refuelRange;

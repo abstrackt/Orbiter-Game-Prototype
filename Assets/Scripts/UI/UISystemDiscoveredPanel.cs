@@ -1,21 +1,30 @@
 ﻿using Systems.Global;
 using UnityEngine;
 using UnityEngine.UI;
+using Utils;
 
 namespace UI
 {
-    public class UISystemDiscoveredPanel : MonoBehaviour
+    public class UISystemDiscoveredPanel : UIPanel
     {
         public Animator animator;
         public Text systemName;
         public CanvasGroup canvasGroup;
 
+        public override void Initialize(GameEventSystem events)
+        {
+            events.OnSystemDiscovered += Show;
+        }
+        
+        public override void Deinitialize(GameEventSystem events)
+        {
+            events.OnSystemDiscovered -= Show;
+        }
+        
         public void Start()
         {
             canvasGroup.alpha = 0;
             animator.enabled = false;
-            var events = GameEventSystem.Instance;
-            events.OnSystemDiscovered += Show;
         }
 
         public void Show(string name)
@@ -24,12 +33,6 @@ namespace UI
             animator.enabled = true;
             animator.Play("LocationAnimation", 0, 0);
             systemName.text = name;
-        }
-
-        public void OnDestroy()
-        {
-            var events = GameEventSystem.Instance;
-            events.OnSystemDiscovered -= Show;
         }
     }
 }

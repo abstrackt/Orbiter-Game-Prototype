@@ -8,6 +8,7 @@ namespace Visuals.StarsScene
     public class PlanetVisuals : MonoBehaviour
     {
         public UnityEngine.Rendering.Universal.ShadowCaster2D shadow;
+        public SpriteRenderer sprite;
         public TrailRenderer trail;
         public float trailCull = 100f;
         public float shadowCull = 150f;

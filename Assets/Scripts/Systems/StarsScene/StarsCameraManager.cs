@@ -16,15 +16,17 @@ namespace Systems.StarsScene
         private Camera _camera;
         private float _targetZoom;
         private Vector3 _targetPos;
-        private Transform _anchored;
+        private Transform _followed;
         private PhysicsSystem _physics;
         private StarsMapManager _map;
 
         public void Start()
         {
+            _camera = Camera.main;
+            
             _map = StarsMapManager.Instance;
-            _anchored = StarsSpaceshipController.Instance.transform;
-            _camera.transform.position = _anchored.position + new Vector3(0, 0, -10);
+            _followed = StarsSpaceshipController.Instance.transform;
+            _camera.transform.position = _followed.position + new Vector3(0, 0, -10);
         }
 
         public void Update()
@@ -36,8 +38,9 @@ namespace Systems.StarsScene
         // This assumes camera is aligned with the axes of the scene
         private void CalculateZoom()
         {
-            var followed = (Vector2)_map.ClosestStarVisuals.star.transform.position;
-            var anchored = (Vector2)_anchored.position;
+            var closest = _map.ClosestStarVisuals.star;
+            var anchored = closest ? (Vector2)closest.transform.position : Vector2.zero;
+            var followed = (Vector2)_followed.position;
             
             Vector2 fromCamera = followed - anchored;
             _targetZoom = fromCamera.magnitude * (1 + tolerance);
@@ -45,8 +48,9 @@ namespace Systems.StarsScene
 
         private void AdjustCamera()
         {
-            var followed = (Vector2)_map.ClosestStarVisuals.star.transform.position;
-            var anchored = (Vector2)_anchored.position;
+            var closest = _map.ClosestStarVisuals.star;
+            var anchored = closest ? (Vector2)closest.transform.position : Vector2.zero;
+            var followed = (Vector2)_followed.position;
 
             var dist = Math.Min((followed - anchored).magnitude, followDist);
             _targetPos = (anchored * (followDist - dist) + followed * dist) / followDist;

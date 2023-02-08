@@ -19,7 +19,7 @@ namespace Utils
             };
 
             var starTypes = Enum.GetValues(typeof(StarType));
-            var planetTypes = Enum.GetValues(typeof(PlanetData));
+            var planetTypes = Enum.GetValues(typeof(PlanetType));
             
             for (int i = 0; i < stars; i++)
             {
@@ -36,9 +36,10 @@ namespace Utils
                     age = rd.NextFloat(1, 1450),
                     magneticField = rd.NextFloat(0, 100),
                     starType = (StarType)starTypes.GetValue(rd.NextInt(starTypes.Length - 1)),
-                    mass = rd.NextFloat(0.5f, 200f),
-                    radius = rd.NextFloat(0.1f, 10f),
-                    temperature = rd.NextFloat(0.5f, 10f)
+                    mass = rd.NextFloat(10f, 100f),
+                    radius = rd.NextFloat(0.5f, 2f),
+                    temperature = rd.NextFloat(0.5f, 100f),
+                    starName = NameGenerator.GetRandomPlanetName()
                 };
 
                 system.star = star;
@@ -81,16 +82,17 @@ namespace Utils
 
                     var planet = new PlanetData()
                     {
-                        initPosition = star.initPosition + (Vector2)rd.NextFloat2Direction() * rd.NextFloat(2, 20),
+                        initPosition = star.initPosition + (Vector2)rd.NextFloat2Direction() * rd.NextFloat(20, 80),
                         age = rd.NextFloat(0, star.age - 0.5f),
                         angularVelocity = rd.NextFloat(-5, 5),
                         atmoData = atmo,
                         mass = rd.NextFloat(0.1f, 10f),
                         planetType = (PlanetType)planetTypes.GetValue(rd.NextInt(planetTypes.Length - 1)),
                         population = rd.NextFloat() > 0.1f ? 0f : rd.NextFloat(0.5f),
-                        radius = rd.NextFloat(0.1f),
+                        radius = rd.NextFloat(0.5f, 2f),
                         seaLevel = atmo.CanHaveLiquids ? rd.NextFloat() : null,
-                        surfaceRadiation = rd.NextFloat(0, 100)
+                        surfaceRadiation = rd.NextFloat(0, 100),
+                        planetName = NameGenerator.GetRandomPlanetName()
                     };
                     
                     system.planets.Add(planet);

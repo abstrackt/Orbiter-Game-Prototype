@@ -1,10 +1,12 @@
+using System;
 using System.Collections.Generic;
 using Data.Map;
 using Systems.Global;
 using Systems.Physics;
 using UnityEngine;
-using Visuals;
+using Utils;
 using Visuals.StarsScene;
+using Random = UnityEngine.Random;
 
 namespace Systems.StarsScene
 {
@@ -50,6 +52,10 @@ namespace Systems.StarsScene
         {
             _controller = StarsSpaceshipController.Instance;
             _physics = PhysicsSystem.Instance;
+            
+            // Load from file later on
+            var data = MapGenerator.GenerateWorldData(2137, 800, 3, 8000);
+            LoadScene(data);
         }
         
         public void Update()
@@ -85,19 +91,103 @@ namespace Systems.StarsScene
             }
         }
 
-        private void AddSystem(StarSystemData data)
+        public void LoadScene(WorldData data)
         {
-            // TODO
+            for (int i = 0; i < data.systems.Count; i++)
+            {
+                AddSystem(data.systems[i]);
+            }
         }
 
-        private void AddPlanet(PlanetData data, StarData star)
+        private void AddSystem(StarSystemData data)
         {
-            // TODO
+            AddStar(data.star);
+
+            for (int i = 0; i < data.planets.Count; i++)
+            {
+                AddPlanet(data.planets[i], data.star);
+            }
+        }
+
+        private void AddPlanet(PlanetData planet, StarData star)
+        {
+            var planetGo = Instantiate(planetPrefab, parent, true);
+            var planetTr = planetGo.transform;
+            var planetVis = planetGo.GetComponent<PlanetVisuals>();
+            var planetPhysics = planetGo.GetComponent<PhysicsBody>();
+
+            var orbitHeight = (planet.initPosition - star.initPosition).magnitude;
+            var point = planet.initPosition;
+            var accel = _physics.Gravity(point);
+            var v = new Vector2(accel.normalized.y, -accel.normalized.x);
+            var mag = (float)Math.Sqrt(PhysicsSystem.G * star.mass * PhysicsSystem.PhysicsScale / orbitHeight);
+            v *= mag * (0.95f + Random.value * 0.1f);
+
+            var planetSize = planet.radius;
+            
+            planetTr.position = point;
+            planetPhysics.mass = planet.mass;
+            planetPhysics.initialVelocity = v;
+
+            // TODO: Change this to sth physically-correct
+            var planetColor = new Color(
+                Random.value, 
+                Random.value * .5f + .5f, 
+                Random.value * .5f + .5f);
+
+            planetTr.localScale = new Vector3(planetSize, planetSize, 1);
+            planetVis.sprite.color = planetColor;
+            var colorKeys = new GradientColorKey[]
+            {
+                new (planetColor, 0),
+                new (planetColor, 1)
+            };
+            var alphaKeys = new GradientAlphaKey[]
+            {
+                new (15, 0),
+                new (0, 1)
+            };
+            planetVis.trail.colorGradient.SetKeys(colorKeys, alphaKeys);
+            
+            _planets.Add(new PlanetEntry
+            {
+                data = planet,
+                physics = planetPhysics,
+                visuals = planetVis
+            });
         }
 
         private void AddStar(StarData star)
         {
-            // TODO
+            var starGo = Instantiate(starPrefab, parent, true);
+            var starTr = starGo.transform;
+            var starVis = starGo.GetComponent<StarVisuals>();
+            var att = starGo.GetComponent<Attractor>();
+
+            starTr.position = star.initPosition;
+            att.mass = star.mass;
+
+            var starTemp = star.temperature;
+            var starColor = new Color(
+                (180 - starTemp * 0.75f) / 255f, 
+                (180 - starTemp) / 255f, 
+                (80 + starTemp * 1.5f) / 255f);
+            var starSize = star.radius * 2;
+
+            starVis.sprite.color = starColor;
+            starVis.starLight.color = starColor;
+            starVis.transform.localScale = new Vector3(starSize, starSize, 1);
+            starVis.starLight.intensity = starSize * 0.75f;
+            starVis.starLight.pointLightOuterRadius *= (float)Math.Sqrt(starSize) / 2;
+
+            _physics.attractors.Add(att);
+            _stars.Add(new StarEntry
+            {
+                data = star,
+                physics = att,
+                visuals = starVis
+            });
         }
     }
 }
+

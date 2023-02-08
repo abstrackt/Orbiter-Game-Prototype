@@ -1,9 +1,18 @@
-using UnityEngine;
+using Systems.Global;
+using Utils;
 
 namespace UI
 {
-    public class UIOrbitalInsertionPanel : MonoBehaviour
+    public class UIOrbitalInsertionPanel : UIPanel
     {
-        
+        public override void Initialize(GameEventSystem events)
+        {
+            
+        }
+
+        public override void Deinitialize(GameEventSystem events)
+        {
+
+        }
     }
 }

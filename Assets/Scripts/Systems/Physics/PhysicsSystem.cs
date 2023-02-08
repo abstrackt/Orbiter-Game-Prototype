@@ -8,7 +8,7 @@ namespace Systems.Physics
 {
     public class PhysicsSystem : SingletonMonoBehaviour<PhysicsSystem>
     {
-        public List<Attractor> attractors = new List<Attractor>();
+        public List<Attractor> attractors = new ();
         public bool defaultEnabled = true;
         public PhysicsBody playerSpaceship;
 
@@ -186,7 +186,6 @@ namespace Systems.Physics
                 return null;
             }
             
-            Profiler.BeginSample("Closest attractor (brute)");
             Attractor closest = attractors[0];
             var pos = (Vector2)closest.transform.position;
             var minDist = (point - pos).magnitude;
@@ -198,7 +197,6 @@ namespace Systems.Physics
                 closest = attractor;
                 minDist = dist;
             }
-            Profiler.EndSample();
             return closest;
         }
 

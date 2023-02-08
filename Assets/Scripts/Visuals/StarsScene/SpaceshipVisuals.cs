@@ -54,6 +54,11 @@ namespace Visuals.StarsScene
                 _trajectory.Draw3D();
                 _trajectory.SetColor(color);
             }
+            else
+            {
+                _trajectory.points3.Clear();
+                _trajectory.Draw3D();
+            }
         }
     }
 }

@@ -1,11 +1,13 @@
-﻿using Systems.Physics;
+﻿using Systems.Global;
+using Systems.Physics;
 using Systems.StarsScene;
 using UnityEngine;
 using UnityEngine.UI;
+using Utils;
 
 namespace UI
 {
-    public class UIShipStatusPanel : MonoBehaviour
+    public class UIShipStatusPanel : UIPanel
     {
         public float fuelWidth = 1870;
         public Image fuelImage;
@@ -15,6 +17,16 @@ namespace UI
         private StarsSpaceshipController _controller;
         private PhysicsSystem _physics;
 
+        public override void Initialize(GameEventSystem events)
+        {
+            
+        }
+
+        public override void Deinitialize(GameEventSystem events)
+        {
+            
+        }
+        
         public void Start()
         {
             _controller = StarsSpaceshipController.Instance;
