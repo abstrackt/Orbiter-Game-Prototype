@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Systems.Global;
 using UnityEngine;
 using UnityEngine.Profiling;
@@ -16,22 +17,22 @@ namespace Systems.Physics
         private List<Vector2> _positions;
         private List<Vector2> _velocities;
         private List<List<Vector2>> _forces;
-        private PhysicsBody[] _physicsBodies;
+        private List<PhysicsBody> _physicsBodies;
         private bool _cacheInitialized = false;
 
         public const float G = 6.67f;
         public const float PhysicsScale = 0.3f;
 
-        public void Start()
+        public void Awake()
         {
-            _physicsBodies = FindObjectsOfType<PhysicsBody>();
+            _physicsBodies = FindObjectsOfType<PhysicsBody>().ToList();
 
-            _positions = new List<Vector2>(_physicsBodies.Length);
-            _velocities = new List<Vector2>(_physicsBodies.Length);
-            _forces = new List<List<Vector2>>(_physicsBodies.Length);
-            _enabled = new List<bool>(_physicsBodies.Length);
+            _positions = new List<Vector2>(_physicsBodies.Count);
+            _velocities = new List<Vector2>(_physicsBodies.Count);
+            _forces = new List<List<Vector2>>(_physicsBodies.Count);
+            _enabled = new List<bool>(_physicsBodies.Count);
 
-            for (int i = 0; i < _physicsBodies.Length; i++)
+            for (int i = 0; i < _physicsBodies.Count; i++)
             {
                 _physicsBodies[i].bodyIndex = i;
                 _physicsBodies[i].physicsSystem = this;
@@ -41,6 +42,21 @@ namespace Systems.Physics
                 _forces.Add(new List<Vector2>());
                 _enabled.Add(defaultEnabled);
             }
+        }
+
+        public void AddBody(PhysicsBody body)
+        {
+            var i = _physicsBodies.Count - 1;
+            
+            _physicsBodies.Add(body);
+            
+            body.bodyIndex = i;
+            body.physicsSystem = this;
+
+            _positions.Add(body.transform.position);
+            _velocities.Add(body.initialVelocity);
+            _forces.Add(new List<Vector2>());
+            _enabled.Add(defaultEnabled);
         }
 
         // This gets called in a frame-independent update loop
@@ -66,7 +82,7 @@ namespace Systems.Physics
         public void RefreshClosestAttractors()
         {
             _cacheInitialized = true;
-            for (int i = 0; i < _physicsBodies.Length; i++)
+            for (int i = 0; i < _physicsBodies.Count; i++)
             {
                 var closest = GetClosestAttractor(_positions[i]);
                 _physicsBodies[i].cachedClosest = closest;
@@ -78,7 +94,7 @@ namespace Systems.Physics
         {
             var closestToShip = GetClosestAttractor(_positions[playerSpaceship.bodyIndex]);
             
-            for (int i = 0; i < _physicsBodies.Length; i++)
+            for (int i = 0; i < _physicsBodies.Count; i++)
             {
                 if (!_enabled[i])
                     continue;
@@ -168,7 +184,7 @@ namespace Systems.Physics
 
         private void UpdateDisplay()
         {
-            for (int i = 0; i < _physicsBodies.Length; i++)
+            for (int i = 0; i < _physicsBodies.Count; i++)
             {
                 if (!_enabled[i])
                     continue;
@@ -273,6 +289,11 @@ namespace Systems.Physics
             }
 
             return default;
+        }
+
+        public void SetPosition(int index, Vector2 v)
+        {
+            _positions[index] = v;
         }
 
         public void SetVelocity(int index, Vector2 v)

@@ -5,7 +5,7 @@ using Vectrosity;
 
 namespace Visuals.StarsScene
 {
-    public class SpaceshipVisuals : MonoBehaviour
+    public class StarsSpaceshipVisuals : MonoBehaviour
     {
         public ParticleSystem particles;
         public float lineWidth = 2f;
@@ -59,6 +59,12 @@ namespace Visuals.StarsScene
                 _trajectory.points3.Clear();
                 _trajectory.Draw3D();
             }
+        }
+
+        public void OnDisable()
+        {
+            _trajectory.points3.Clear();
+            _trajectory.Draw3D();
         }
     }
 }

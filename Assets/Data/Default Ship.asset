@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89ddec5124ba454297517a08906fe43a, type: 3}
   m_Name: Default Ship
   m_EditorClassIdentifier: 
-  thrust: 0.5
+  thrust: 5
   maxFuel: 300
   consumptionRate: 1
   refuelRange: 2

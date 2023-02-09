@@ -1,4 +1,5 @@
 ﻿using System;
+using Data.Map;
 
 namespace Systems.Global
 {
@@ -6,5 +7,7 @@ namespace Systems.Global
     public class GameEventSystem : SingletonMonoBehaviour<GameEventSystem>
     {
         public Action<string> OnSystemDiscovered;
+        public Action<PlanetData> OnEnteredOrbit;
+        public Action<PlanetData> OnLeftOrbit;
     }
 }

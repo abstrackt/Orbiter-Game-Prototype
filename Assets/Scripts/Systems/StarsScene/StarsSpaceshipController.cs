@@ -14,7 +14,7 @@ namespace Systems.StarsScene
         public float C => (float)Math.Exp(Velocity.magnitude / 40f) - 1f;
         public bool Maneuvering => _maneuvering;
         public bool Refueling => _refueling;
-        public bool Orbiting => _orbiting != null;
+        public bool CanOrbit => _canOrbit;
         public float FuelPercent => _fuel / _spaceship.Stats.maxFuel;
 
         private SpaceshipManager _spaceship;
@@ -24,17 +24,19 @@ namespace Systems.StarsScene
         private float _fuel;
         private bool _maneuvering;
         private bool _refueling;
-        private PhysicsBody _orbiting;
+        private bool _canOrbit;
         private Camera _camera;
 
         public void Start()
         {
             _camera = Camera.main;
-            _orbiting = null;
             _physicsBody = gameObject.GetComponent<PhysicsBody>();
             _spaceship = SpaceshipManager.Instance;
             _map = StarsMapManager.Instance;
             _fuel = _spaceship.Stats.maxFuel;
+
+            _physicsBody.PositionOverride(_spaceship.SavedPos);
+            _physicsBody.VelocityOverride(_spaceship.SavedVel);
         }
 
         public void Refuel(float value)
@@ -46,34 +48,34 @@ namespace Systems.StarsScene
 
         public void Update()
         {
+            HandleOrbit();
             HandleRefuel();
             HandleMovement();
         }
 
-        private bool TryEnterOrbit(PhysicsBody body)
+        private void HandleOrbit()
         {
-            var shipVelocity = _physicsBody.GetVelocity();
-            var bodyVelocity = body.GetVelocity();
-            var relativeVelocity = bodyVelocity - shipVelocity;
-            var dist = (transform.position - body.transform.position).magnitude;
-            if (dist < body.interactRadius && relativeVelocity.magnitude < body.EscapeVelocity)
+            if (_map.ClosestPlanetPhysics.planet)
             {
-                _orbiting = body;
-                _physicsBody.PhysicsEnabled = false;
+                var body = _map.ClosestPlanetPhysics.planet;
+                var dist = _map.ClosestPlanetPhysics.dist;
+                var shipVelocity = _physicsBody.GetVelocity();
+                var bodyVelocity = body.GetVelocity();
+                var relativeVelocity = bodyVelocity - shipVelocity;
+                if (dist < body.interactRadius && relativeVelocity.magnitude < body.EscapeVelocity)
+                {
+                    _canOrbit = true;
+
+                    if (Input.GetKeyDown(KeyCode.O))
+                    {
+                        _spaceship.EnterOrbit(_map.ClosestPlanetData.planet, _physicsBody);
+                    }
+
+                    return;
+                }
             }
 
-            return false;
-        }
-
-        private bool TryLeaveOrbit()
-        {
-            if (_orbiting == null)
-            {
-                var velocity = _orbiting.GetVelocity() ;
-                _physicsBody.PhysicsEnabled = true;
-            }
-
-            return false;
+            _canOrbit = false;
         }
 
         private void HandleRefuel()
@@ -88,23 +90,20 @@ namespace Systems.StarsScene
         
         private void HandleMovement()
         {
-            if (!_orbiting)
+            var vert = Input.GetAxis("Vertical");
+            var hor = Input.GetAxis("Horizontal");
+        
+            if ((vert != 0 || hor != 0) && _fuel > 0)
             {
-                var vert = Input.GetAxis("Vertical");
-                var hor = Input.GetAxis("Horizontal");
-            
-                if ((vert != 0 || hor != 0) && _fuel > 0)
-                {
-                    _maneuvering = true;
-                    _fuel -= _spaceship.Stats.consumptionRate * Time.deltaTime;
-                    AddThrust(vert, hor);
-                }
-                else
-                {
-                    _maneuvering = false;
-                }
-                Turn();
+                _maneuvering = true;
+                _fuel -= _spaceship.Stats.consumptionRate * Time.deltaTime;
+                AddThrust(vert, hor);
             }
+            else
+            {
+                _maneuvering = false;
+            }
+            Turn();
         }
 
         private void Turn()

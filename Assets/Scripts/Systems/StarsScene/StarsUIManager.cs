@@ -8,7 +8,7 @@ namespace Systems.StarsScene
         public UIPlanetIndicatorPanel planetIndicator;
         public UIShipIndicatorPanel shipIndicator;
         public UIShipStatusPanel shipStatus;
-        //public UIOrbitalInsertionPanel orbitalInsertion;
+        public UIOrbitalInsertionPanel orbitalInsertion;
         public UISystemDiscoveredPanel systemDiscoveredPanel;
         
         public void Initialize(GameEventSystem events)
@@ -16,7 +16,7 @@ namespace Systems.StarsScene
             planetIndicator.Initialize(events);
             shipIndicator.Initialize(events);
             shipStatus.Initialize(events);
-            //orbitalInsertion.Initialize(events);
+            orbitalInsertion.Initialize(events);
             systemDiscoveredPanel.Initialize(events);
         }
 
@@ -25,7 +25,7 @@ namespace Systems.StarsScene
             planetIndicator.Deinitialize(events);
             shipIndicator.Deinitialize(events);
             shipStatus.Deinitialize(events);
-            //orbitalInsertion.Deinitialize(events);
+            orbitalInsertion.Deinitialize(events);
             systemDiscoveredPanel.Deinitialize(events);
         }
     }

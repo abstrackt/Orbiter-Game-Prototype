@@ -10,9 +10,9 @@ namespace Systems.Global
         {
             get
             {
-                if (instance == null)
+                if (instance == null || !instance.gameObject.activeInHierarchy)
                 {
-                    instance = (T)FindObjectOfType(typeof(T));
+                    instance = (T)FindObjectOfType(typeof(T), false);
 
                     if (instance == null)
                     {

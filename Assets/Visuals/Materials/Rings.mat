@@ -71,14 +71,14 @@ Material:
     - _ColorScale: 300
     - _Cutoff: 0
     - _EnableExternalAlpha: 0
-    - _InnerRadius: 0.014
+    - _InnerRadius: 0.015
     - _Opacity: 0.4
-    - _OuterRadius: 0.03
+    - _OuterRadius: 0.05
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Sharpness: 2.48
+    - _Sharpness: 1.94
     m_Colors:
-    - _Color: {r: 0.9347154, g: 0.8627451, b: 1, a: 1}
+    - _Color: {r: 1, g: 0.9609735, b: 0.9098039, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

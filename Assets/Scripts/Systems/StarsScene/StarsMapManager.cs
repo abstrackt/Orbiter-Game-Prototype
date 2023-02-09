@@ -39,6 +39,8 @@ namespace Systems.StarsScene
         public (StarVisuals star, float dist) ClosestStarVisuals => (_closestStar.visuals, _starDistance);
         public (PlanetVisuals planet, float dist) ClosestPlanetVisuals => (_closestPlanet.visuals, _planetDistance);
         
+        public (PhysicsBody planet, float dist) ClosestPlanetPhysics => (_closestPlanet.physics, _planetDistance);
+        
         private List<PlanetEntry> _planets = new ();
         private List<StarEntry> _stars = new ();
 
@@ -62,6 +64,7 @@ namespace Systems.StarsScene
         {
             _planetDistance = float.MaxValue;
             _closestPlanet = default;
+            
             foreach (var planet in _planets)
             {
                 var planetPos = planet.visuals.transform.position;
@@ -128,12 +131,8 @@ namespace Systems.StarsScene
             planetTr.position = point;
             planetPhysics.mass = planet.mass;
             planetPhysics.initialVelocity = v;
-
-            // TODO: Change this to sth physically-correct
-            var planetColor = new Color(
-                Random.value, 
-                Random.value * .5f + .5f, 
-                Random.value * .5f + .5f);
+            
+            var planetColor = planet.surfaceColor;
 
             planetTr.localScale = new Vector3(planetSize, planetSize, 1);
             planetVis.sprite.color = planetColor;
@@ -155,6 +154,8 @@ namespace Systems.StarsScene
                 physics = planetPhysics,
                 visuals = planetVis
             });
+            
+            _physics.AddBody(planetPhysics);
         }
 
         private void AddStar(StarData star)

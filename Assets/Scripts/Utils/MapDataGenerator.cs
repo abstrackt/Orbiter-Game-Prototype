@@ -13,7 +13,7 @@ namespace Utils
         {
             var rd = new Random(seed);
 
-            var world = new WorldData()
+            var world = new WorldData
             {
                 systems = new()
             };
@@ -48,10 +48,10 @@ namespace Utils
 
                 for (int j = 0; j < planets; j++)
                 {
-                    var comp = new List<float>(9);
+                    var comp = new List<float>(AtmosphereData.ELEMENT_COUNT);
                     var sum = 0f;
                     
-                    for (int k = 0; k < 9; k++)
+                    for (int k = 0; k < AtmosphereData.ELEMENT_COUNT; k++)
                     {
                         var val = rd.NextFloat(0, 100);
                         comp.Add(val);
@@ -60,13 +60,19 @@ namespace Utils
 
                     if (sum != 0)
                     {
-                        for (int k = 0; k < 9; k++)
+                        for (int k = 0; k < AtmosphereData.ELEMENT_COUNT; k++)
                         {
                             comp[k] /= sum;
                         }
                     }
                     
-                    var atmo = new AtmosphereData()
+                    var dist = rd.NextFloat(10, 100);
+                    var planetPos = star.initPosition + (Vector2) rd.NextFloat2Direction() * dist;
+
+                    var surfType = (PlanetType) planetTypes.GetValue(rd.NextInt(planetTypes.Length - 1));
+                    var isGas = surfType is PlanetType.Giant or PlanetType.Subgiant;
+
+                    var atmo = new AtmosphereData
                     {
                         ammonia = comp[0],
                         co2 = comp[1],
@@ -77,21 +83,56 @@ namespace Utils
                         oxygen = comp[6],
                         sulphur = comp[7],
                         waterVapor = comp[8],
-                        pressure = rd.NextFloat(0, 10000f)
+                        pressure = rd.NextFloat(isGas ? AtmosphereData.MAX_PRESSURE * 0.75f : 0, AtmosphereData.MAX_PRESSURE * 0.5f),
+                        temperature = Mathf.Lerp(700f, -260f, Mathf.Sqrt(dist / 100f))
                     };
-
-                    var planet = new PlanetData()
+                    
+                    var isIce = surfType is PlanetType.Icy;
+                    if (isIce && atmo.temperature > -10f)
                     {
-                        initPosition = star.initPosition + (Vector2)rd.NextFloat2Direction() * rd.NextFloat(20, 80),
+                        isIce = false;
+                        surfType = PlanetType.Rocky;
+                    }
+
+                    bool hasRings = rd.NextFloat() < 0.1f;
+
+                    RingData ring = default;
+
+                    if (hasRings)
+                    {
+                        var inner = rd.NextFloat(0.013f, 0.025f);
+
+                        ring = new RingData
+                        {
+                            innerRadius = rd.NextFloat(0.013f, 0.025f),
+                            outerRadius = inner + rd.NextFloat(0.01f, 0.04f),
+                            opacity = rd.NextFloat(0.1f, 0.6f)
+                        };
+                    }
+                    
+                    var seaType = (SeaType) (isGas ? SeaType.Gas : planetTypes.GetValue(rd.NextInt(planetTypes.Length - 2)));
+
+                    var minV = isGas || isIce ? 0.85f : 0.6f;
+
+                    var planet = new PlanetData
+                    {
+                        initPosition = planetPos,
                         age = rd.NextFloat(0, star.age - 0.5f),
                         angularVelocity = rd.NextFloat(-5, 5),
                         atmoData = atmo,
+                        ringData = ring,
+                        hasRings = hasRings,
                         mass = rd.NextFloat(0.1f, 10f),
-                        planetType = (PlanetType)planetTypes.GetValue(rd.NextInt(planetTypes.Length - 1)),
-                        population = rd.NextFloat() > 0.1f ? 0f : rd.NextFloat(0.5f),
+                        planetType = surfType,
+                        seaType = seaType,
+                        population = (isGas || rd.NextFloat() > 0.1f) ? 0f : rd.NextFloat(0.5f),
                         radius = rd.NextFloat(0.5f, 2f),
-                        seaLevel = atmo.CanHaveLiquids ? rd.NextFloat() : null,
+                        seaLevel = atmo.CanHaveLiquids ? rd.NextFloat() : 0,
                         surfaceRadiation = rd.NextFloat(0, 100),
+                        surfaceColor = Color.HSVToRGB(
+                            rd.NextFloat(),
+                            rd.NextFloat(0.05f, 0.75f),
+                            rd.NextFloat(minV, 1f)),
                         planetName = NameGenerator.GetRandomPlanetName()
                     };
                     

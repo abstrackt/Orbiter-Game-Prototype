@@ -59,34 +59,57 @@ Material:
     m_Ints: []
     m_Floats:
     - Vector1_043ea39f78854c3d88da6f3d554288da: 11
-    - Vector1_1c78d8034a0842679d6dc6fb0bd2e828: 0.71
-    - Vector1_3eabefd9c2344c02b32fd4627a209cd7: 0.38
-    - Vector1_3f3771291fef4e0797a25f52f7fce984: 0.43
+    - Vector1_1c78d8034a0842679d6dc6fb0bd2e828: 0.7
+    - Vector1_3eabefd9c2344c02b32fd4627a209cd7: 0.8
+    - Vector1_3f3771291fef4e0797a25f52f7fce984: 0.42
     - Vector1_59a7b1251d9f4fdcb15b7a821c21707b: 24.35
     - Vector1_65d2a77ec8c547268ab0ac6a08985bbe: 0.25
     - Vector1_7a3306d64966440883e7a10abac06835: 0.27
-    - Vector1_993c72a51435413c9e4a5aba0a9c9c7b: 0.4
+    - Vector1_993c72a51435413c9e4a5aba0a9c9c7b: 0.35
     - Vector1_9cd78a0dac5e4753a2984131067e284a: 20
-    - Vector1_c2c9e541d26d43dcb6770571c6c2ec6a: 7.2
-    - Vector1_e8591e99882848b7baf9b31c254e12f6: 0.28
+    - Vector1_c2c9e541d26d43dcb6770571c6c2ec6a: 1
+    - Vector1_e8591e99882848b7baf9b31c254e12f6: 0.24
     - Vector1_f0523818f47e4529a1340e0f90736e8f: -5.08
     - Vector1_f552813142074451b2b02506fd63756d: 5.04
     - Vector1_f552813142074451b2b02506fd63756d_1: 4.5
+    - _Boost: 0.2
+    - _CloudCover: 0.46
+    - _CloudOpacity: 0.24
+    - _CloudSmoothness: 0.69
+    - _CraterSize: 0.03
+    - _Crater_size: 0.05
     - _EnableExternalAlpha: 0
+    - _GradientScale: 1.94
+    - _IceCapSize: 0.7
+    - _Ice_Cap_Size: 0.65
+    - _LandDetail: 6
     - _LightBoost: 0.1
+    - _LightIntensity: 3
+    - _Population: 0.33
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _SeaLevel: 0.2
+    - _SimpleScale: 9.16
+    - _Smoothness: 0.1
     m_Colors:
-    - Color_495439f6e3e74c4ab4188f575874805e: {r: 0.28159487, g: 0.48106015, b: 0.5283019, a: 0}
+    - Color_495439f6e3e74c4ab4188f575874805e: {r: 0.5154415, g: 0.6465793, b: 0.764151, a: 0}
     - Color_a9cde6a917b34204ad4b301d369c83ea: {r: 0.9245283, g: 0.9245283, b: 0.9245283, a: 0}
-    - Color_b81f08fe8c3f42a187255c2ad909a66d: {r: 0.5634483, g: 0.5019608, b: 0.74509805, a: 0}
-    - Color_b81f08fe8c3f42a187255c2ad909a66d_1: {r: 0.5110718, g: 0.47058824, b: 0.6509804, a: 0}
-    - Vector3_0e86a81df205434bb81842a8768a1c4c: {r: -200, g: 0, b: -90, a: 0}
+    - Color_b81f08fe8c3f42a187255c2ad909a66d: {r: 1, g: 0.7369989, b: 0.5707547, a: 0}
+    - Color_b81f08fe8c3f42a187255c2ad909a66d_1: {r: 0.922, g: 0.679749, b: 0.5278902, a: 0}
+    - Vector3_0e86a81df205434bb81842a8768a1c4c: {r: -200, g: -200, b: -80, a: 0}
     - Vector3_b9f7b489eaf54c1eb52461988237e0d9: {r: 0.1, g: 0, b: 0.01, a: 0}
-    - Vector3_f283e36b503b4abc8483e5632004942d: {r: 0.25, g: 6.05, b: 1, a: 0}
+    - Vector3_f283e36b503b4abc8483e5632004942d: {r: 0.25, g: 4, b: 1, a: 0}
+    - _CloudColor: {r: 0.8152813, g: 0.864943, b: 0.8773585, a: 0}
+    - _CloudStretch: {r: 1, g: 3.45, b: 1, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _IceColor: {r: 1, g: 1, b: 1, a: 0}
+    - _LandColor1: {r: 0.5372549, g: 0.4105979, b: 0.17647058, a: 0}
+    - _LandColor2: {r: 0.4509804, g: 0.37008375, b: 0.20392156, a: 0}
+    - _LightPos: {r: -200, g: -200, b: -80, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
+    - _SeaColor: {r: 0, g: 0.34509796, b: 0.50980395, a: 0}
+    - _Wind: {r: 0.02, g: 0.01, b: 0.01, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &1093557493613537401
 MonoBehaviour:
