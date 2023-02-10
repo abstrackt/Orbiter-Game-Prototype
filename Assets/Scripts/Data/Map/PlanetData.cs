@@ -9,7 +9,7 @@ namespace Data.Map
     {
         public bool Inhabited => population > 0;
 
-        public float SurfaceGravity => mass / Mathf.Pow(radius, 2);
+        public float SurfaceGravity => 0.5f * mass / Mathf.Pow(radius, 2);
         public float HoursInDay => 2 * Mathf.PI / angularVelocity;
 
         public string planetName;

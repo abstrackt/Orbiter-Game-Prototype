@@ -63,8 +63,7 @@ namespace Visuals.StarsScene
 
         public void OnDisable()
         {
-            _trajectory.points3.Clear();
-            _trajectory.Draw3D();
+            VectorLine.Destroy(ref _trajectory);
         }
     }
 }

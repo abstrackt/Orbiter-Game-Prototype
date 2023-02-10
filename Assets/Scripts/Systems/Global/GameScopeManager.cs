@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections;
 using Data.Map;
 using Systems.StarsScene;
+using UI.Global;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Systems.Global
@@ -15,7 +18,10 @@ namespace Systems.Global
 
     public class GameScopeManager : SingletonMonoBehaviour<GameScopeManager>
     {
+        public UILoadingScreen loadingScreen;
+        
         public GameScope Current => _current;
+        public bool IsLoading => _loaded != 0;
         
         private GameScope _current;
         private GameScope _loaded;
@@ -30,6 +36,9 @@ namespace Systems.Global
             _events.OnEnteredOrbit += OnEnteredOrbit;
             _events.OnLeftOrbit += OnLeftOrbit;
             SceneManager.sceneLoaded += OnSceneLoaded;
+            
+            loadingScreen.Initialize(_events);
+            
             EnterScope(GameScope.Space);
         }
 
@@ -38,7 +47,8 @@ namespace Systems.Global
             _events.OnEnteredOrbit -= OnEnteredOrbit;
             _events.OnLeftOrbit -= OnLeftOrbit;
             SceneManager.sceneLoaded -= OnSceneLoaded;
-            LeaveScope(GameScope.Space);
+            
+            loadingScreen.Deinitialize(_events);
         }
 
         public void EnterScope(GameScope scope)
@@ -118,14 +128,20 @@ namespace Systems.Global
 
         public void OnEnteredOrbit(PlanetData planet)
         {
-            LeaveScope(GameScope.Space);
-            EnterScope(GameScope.Planet);
+            StartCoroutine(SwitchScenes(1f, GameScope.Space, GameScope.Planet));
         }
         
         public void OnLeftOrbit(PlanetData planet)
         {
-            LeaveScope(GameScope.Planet);
-            EnterScope(GameScope.Space);
+            StartCoroutine(SwitchScenes(1f, GameScope.Planet, GameScope.Space));
+        }
+
+        private IEnumerator SwitchScenes(float delay, GameScope leaving, GameScope entering)
+        {
+            yield return new WaitForSeconds(delay);
+            
+            LeaveScope(leaving);
+            EnterScope(entering);
         }
     }
 }

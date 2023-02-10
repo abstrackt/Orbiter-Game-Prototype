@@ -19,6 +19,7 @@ namespace Systems.StarsScene
 
         private SpaceshipManager _spaceship;
         private StarsMapManager _map;
+        private StarsCameraManager _cameraManager;
         private PhysicsBody _physicsBody;
         private (Vector2, Vector2) _dashData;
         private float _fuel;
@@ -30,6 +31,7 @@ namespace Systems.StarsScene
         public void Start()
         {
             _camera = Camera.main;
+            _cameraManager = StarsCameraManager.Instance;
             _physicsBody = gameObject.GetComponent<PhysicsBody>();
             _spaceship = SpaceshipManager.Instance;
             _map = StarsMapManager.Instance;
@@ -37,6 +39,7 @@ namespace Systems.StarsScene
 
             _physicsBody.PositionOverride(_spaceship.SavedPos);
             _physicsBody.VelocityOverride(_spaceship.SavedVel);
+            _cameraManager.JumpToPoint(_spaceship.SavedPos);
         }
 
         public void Refuel(float value)
@@ -59,15 +62,13 @@ namespace Systems.StarsScene
             {
                 var body = _map.ClosestPlanetPhysics.planet;
                 var dist = _map.ClosestPlanetPhysics.dist;
-                var shipVelocity = _physicsBody.GetVelocity();
-                var bodyVelocity = body.GetVelocity();
-                var relativeVelocity = bodyVelocity - shipVelocity;
-                if (dist < body.interactRadius && relativeVelocity.magnitude < body.EscapeVelocity)
+                if (dist < body.interactRadius)
                 {
                     _canOrbit = true;
 
                     if (Input.GetKeyDown(KeyCode.O))
                     {
+                        _map.SaveWorldState();
                         _spaceship.EnterOrbit(_map.ClosestPlanetData.planet, _physicsBody);
                     }
 

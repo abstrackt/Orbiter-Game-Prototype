@@ -1,11 +1,12 @@
 using System;
+using Systems.Global;
 using Systems.Physics;
 using UnityEngine;
 
 namespace Systems.StarsScene
 {
     [RequireComponent(typeof(Camera))]
-    public class StarsCameraManager : MonoBehaviour
+    public class StarsCameraManager : SingletonMonoBehaviour<StarsCameraManager>
     {
         public float minZoom, maxZoom;
         public float lerpSpeed;
@@ -27,6 +28,16 @@ namespace Systems.StarsScene
             _map = StarsMapManager.Instance;
             _followed = StarsSpaceshipController.Instance.transform;
             _camera.transform.position = _followed.position + new Vector3(0, 0, -10);
+        }
+
+        public void JumpToFollowed()
+        {
+            _camera.transform.position = _followed.position + new Vector3(0, 0, -10);
+        }
+        
+        public void JumpToPoint(Vector2 pos)
+        {
+            _camera.transform.position = (Vector3)pos + new Vector3(0, 0, -10);
         }
 
         public void Update()

@@ -26,11 +26,6 @@ namespace Systems.Global
             GameEventSystem.Instance.OnEnteredOrbit?.Invoke(planet);
         }
 
-        public void ResetPlanetInfo()
-        {
-            _currentPlanet = null;
-        }
-        
         public void LeaveOrbit()
         {
             if (_currentPlanet.HasValue)

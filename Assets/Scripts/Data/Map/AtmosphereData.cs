@@ -23,11 +23,9 @@ namespace Data.Map
             ammonia < AMMONIA_TOXICITY;
 
         // TODO: Rewrite to correct vapor capacity formula
-        public float Humidity => oxygen == 0 ? 0f : waterVapor * 10f;
-        
+        public float Humidity => oxygen == 0 ? 0f : waterVapor;
         public bool CanHaveLiquids => temperature > -20 && temperature < 100 && pressure > 200;
         public bool CanHaveClouds => temperature > -20 && temperature < 100 && pressure > 1000;
-        
         public bool Inhabitable => temperature > -50 && temperature < 100;
         
         public float pressure;

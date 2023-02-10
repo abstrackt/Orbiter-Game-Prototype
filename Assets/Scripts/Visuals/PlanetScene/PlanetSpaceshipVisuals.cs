@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Systems.Physics;
 using Systems.StarsScene;
 using UnityEngine;
 using Vectrosity;
@@ -38,8 +37,7 @@ namespace Visuals.PlanetScene
         
         public void OnDisable()
         {
-            _trajectory.points3.Clear();
-            _trajectory.Draw3D();
+            VectorLine.Destroy(ref _trajectory);
         }
     }
 }

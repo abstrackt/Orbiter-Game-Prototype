@@ -38,7 +38,7 @@ namespace Visuals.PlanetScene
 
             var col1 = data.surfaceColor;
             Color.RGBToHSV(col1, out var h, out var s, out var v);
-            var col2 = Color.HSVToRGB(0.95f * h, s, 0.95f * v);
+            var col2 = Color.HSVToRGB(h, s, 0.85f * v);
             var seaCol = GetSeaColor(data.seaType, col1);
             
             planet.material.SetColor("_LandColor1", col1);
@@ -68,11 +68,11 @@ namespace Visuals.PlanetScene
            
             // Atmosphere
 
-            var t = Mathf.Lerp(2f, 0f, 2f * data.atmoData.pressure / AtmosphereData.MAX_PRESSURE);
+            var t = Mathf.Lerp(1, 0, 2 * data.atmoData.pressure / AtmosphereData.MAX_PRESSURE);
 
-            atmosphere.material.SetFloat("_Transparency", Mathf.Lerp(0f, 2f, t));
+            atmosphere.material.SetFloat("_Transparency", Mathf.Lerp(0.7f, 2f, t));
 
-            var atmoCol = data.seaLevel > 0.2f ? seaCol : col1;
+            var atmoCol = data.seaLevel > 0.5f ? seaCol : col1;
             Color.RGBToHSV(atmoCol, out h, out s, out v);
             atmoCol = Color.HSVToRGB(h, s * 0.8f, 1f);
 
@@ -82,27 +82,27 @@ namespace Visuals.PlanetScene
 
             var cloudCol = Color.white * 0.95f;
 
-            if (data.seaLevel > 0.25f)
+            if (data.seaLevel > 0.5f)
             {
                 cloudCol = Color.Lerp(seaCol, cloudCol, 0.9f);
             }
             
-            planet.material.SetColor("_CloudColor", cloudCol);
+            this.planet.material.SetColor("_CloudColor", cloudCol);
             
             // Ice caps
-
+            
             var iceCol = new Color(0.85f, 0.9f, 1f);
             
-            if (data.seaLevel > 0.25f)
+            if (data.seaLevel > 0.5f)
             {
                 iceCol = Color.Lerp(seaCol, iceCol, 0.9f);
             }
             
             var mult = -(data.atmoData.temperature - 30f) / 100f;
-            var iceSize = data.atmoData.temperature < 30f ? Mathf.Clamp01(data.seaLevel + 0.25f * mult) : 0f;
+            var iceSize = data.atmoData.temperature < 30f && !gas ? Mathf.Clamp01(data.atmoData.Humidity + 0.4f * mult) : 0f;
             
-            planet.material.SetColor("_IceColor", iceCol);
-            planet.material.SetFloat("_IceCapSize", iceSize);
+            this.planet.material.SetColor("_IceColor", iceCol);
+            this.planet.material.SetFloat("_IceCapSize", iceSize);
             
             // Craters
 
@@ -113,7 +113,7 @@ namespace Visuals.PlanetScene
                 craterAmount = Random.Range(0.01f, 0.05f);
             }
             
-            planet.material.SetFloat("_CraterSize", craterAmount);
+            this.planet.material.SetFloat("_CraterSize", craterAmount);
         }
 
         private Color GetSeaColor(SeaType type, Color surface)

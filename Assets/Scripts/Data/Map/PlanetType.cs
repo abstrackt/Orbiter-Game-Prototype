@@ -2,9 +2,9 @@
 {
     public enum PlanetType
     {
-        Icy = 1,
-        Rocky = 2,
-        Subgiant = 3,
-        Giant = 4,
+        Icy = 0,
+        Rocky = 1,
+        Subgiant = 2,
+        Giant = 3,
     }
 }

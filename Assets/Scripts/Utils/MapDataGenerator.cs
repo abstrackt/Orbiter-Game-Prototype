@@ -84,7 +84,7 @@ namespace Utils
                         sulphur = comp[7],
                         waterVapor = comp[8],
                         pressure = rd.NextFloat(isGas ? AtmosphereData.MAX_PRESSURE * 0.75f : 0, AtmosphereData.MAX_PRESSURE * 0.5f),
-                        temperature = Mathf.Lerp(700f, -260f, Mathf.Sqrt(dist / 100f))
+                        temperature = Mathf.Lerp(200f * star.temperature / 10f, -260f, Mathf.Sqrt(dist / 100f))
                     };
                     
                     var isIce = surfType is PlanetType.Icy;
@@ -113,7 +113,8 @@ namespace Utils
                     var seaType = (SeaType) (isGas ? SeaType.Gas : planetTypes.GetValue(rd.NextInt(planetTypes.Length - 2)));
 
                     var minV = isGas || isIce ? 0.85f : 0.6f;
-
+                    var rad = isGas ? rd.NextFloat(1.5f, 3f) : rd.NextFloat(0.5f, 1.5f);
+                    
                     var planet = new PlanetData
                     {
                         initPosition = planetPos,
@@ -122,16 +123,16 @@ namespace Utils
                         atmoData = atmo,
                         ringData = ring,
                         hasRings = hasRings,
-                        mass = rd.NextFloat(0.1f, 10f),
+                        mass = (isGas ? 0.3f : 0.6f) * MathF.PI * MathF.Pow(rad, 3),
                         planetType = surfType,
                         seaType = seaType,
                         population = (isGas || rd.NextFloat() > 0.1f) ? 0f : rd.NextFloat(0.5f),
-                        radius = rd.NextFloat(0.5f, 2f),
-                        seaLevel = atmo.CanHaveLiquids ? rd.NextFloat() : 0,
+                        radius = rad,
+                        seaLevel = atmo.CanHaveLiquids ? rd.NextFloat(0.25f, 0.7f) : 0,
                         surfaceRadiation = rd.NextFloat(0, 100),
                         surfaceColor = Color.HSVToRGB(
                             rd.NextFloat(),
-                            rd.NextFloat(0.05f, 0.75f),
+                            rd.NextFloat(0.05f, 0.3f),
                             rd.NextFloat(minV, 1f)),
                         planetName = NameGenerator.GetRandomPlanetName()
                     };

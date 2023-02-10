@@ -4,7 +4,6 @@ using Data.Map;
 using Systems.Global;
 using Systems.Physics;
 using UnityEngine;
-using Utils;
 using Visuals.StarsScene;
 using Random = UnityEngine.Random;
 
@@ -18,6 +17,7 @@ namespace Systems.StarsScene
         
         private StarsSpaceshipController _controller;
         private PhysicsSystem _physics;
+        private SaveLoadManager _saves;
 
         private struct PlanetEntry
         {
@@ -54,9 +54,10 @@ namespace Systems.StarsScene
         {
             _controller = StarsSpaceshipController.Instance;
             _physics = PhysicsSystem.Instance;
-            
+            _saves = SaveLoadManager.Instance;
+
             // Load from file later on
-            var data = MapGenerator.GenerateWorldData(2137, 800, 3, 8000);
+            var data = _saves.GetCurrentSave();
             LoadScene(data);
         }
         
@@ -188,6 +189,29 @@ namespace Systems.StarsScene
                 physics = att,
                 visuals = starVis
             });
+        }
+
+        public void SaveWorldState()
+        {
+            var world = _saves.GetCurrentSave();
+
+            for (int i = 0; i < world.systems.Count; i++)
+            {
+                var system = world.systems[i];
+
+                for (int j = 0; j < system.planets.Count; j++)
+                {
+                    var planet = _planets.Find(x => { return x.data.Equals(system.planets[j]); });
+
+                    var data = system.planets[j];
+                    data.initPosition = planet.physics.transform.position;
+                    system.planets[j] = data;
+                }
+
+                world.systems[i] = system;
+            }
+            
+            _saves.OverwriteSave(world);
         }
     }
 }
