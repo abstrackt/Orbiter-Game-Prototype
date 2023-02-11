@@ -15,7 +15,7 @@ namespace UI
         public Text detailedInfo;
         public CanvasGroup canvasGroup;
 
-        private SpaceshipManager _spaceship;
+        private LocationManager _location;
         
         public override void Initialize(GameEventSystem events)
         {
@@ -29,12 +29,12 @@ namespace UI
 
         public void Start()
         {
-            _spaceship = SpaceshipManager.Instance;
+            _location = LocationManager.Instance;
 
-            if (_spaceship.OrbitingPlanet.HasValue)
+            if (_location.OrbitingPlanet.HasValue)
             {
                 StartCoroutine(FadeIn());
-                SetUp(_spaceship.OrbitingPlanet.Value);
+                SetUp(_location.OrbitingPlanet.Value);
             }
         }
 

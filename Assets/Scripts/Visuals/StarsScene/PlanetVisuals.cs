@@ -11,7 +11,7 @@ namespace Visuals.StarsScene
         public SpriteRenderer sprite;
         public TrailRenderer trail;
         public float trailCull = 100f;
-        public float shadowCull = 150f;
+        public float shadowCull = 160f;
 
         private Camera _camera;
 

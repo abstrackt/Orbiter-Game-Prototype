@@ -95,6 +95,32 @@ namespace Systems.StarsScene
             }
         }
 
+        public (StarData? star, float dist, float phase) GetClosestStarData(PhysicsBody body)
+        {
+            StarData? data = null;
+            float minDist = float.MaxValue;
+            float minPhase = 0;
+
+            var planetPos = body.transform.position;
+
+            for (int i = 0; i < _stars.Count; i++)
+            {
+                var starPos = _stars[i].physics.transform.position;
+
+                var dir = planetPos - starPos;
+                var dist = dir.magnitude;
+
+                if (dist < minDist)
+                {
+                    minDist = dist;
+                    minPhase = Mathf.Atan2(dir.y, dir.x);
+                    data = _stars[i].data;
+                }
+            }
+
+            return (data, minDist, minPhase);
+        }
+
         public void LoadScene(WorldData data)
         {
             for (int i = 0; i < data.systems.Count; i++)
@@ -171,16 +197,16 @@ namespace Systems.StarsScene
 
             var starTemp = star.temperature;
             var starColor = new Color(
-                (180 - starTemp * 0.75f) / 255f, 
-                (180 - starTemp) / 255f, 
-                (80 + starTemp * 1.5f) / 255f);
+                Mathf.Clamp01((250 - starTemp * 4f) / 255f + Mathf.Max(starTemp - 80f, 0)),
+                Mathf.Clamp01((90 - starTemp * .4f) / 255f + Mathf.Max(starTemp - 80f, 0)),
+                Mathf.Clamp01((20 + starTemp * 2f) / 255f + Mathf.Max(starTemp - 80f, 0)));
             var starSize = star.radius * 2;
 
             starVis.sprite.color = starColor;
             starVis.starLight.color = starColor;
             starVis.transform.localScale = new Vector3(starSize, starSize, 1);
             starVis.starLight.intensity = starSize * 0.75f;
-            starVis.starLight.pointLightOuterRadius *= (float)Math.Sqrt(starSize) / 2;
+            starVis.starLight.pointLightOuterRadius *= Mathf.Sqrt(starSize) / 2;
 
             _physics.attractors.Add(att);
             _stars.Add(new StarEntry

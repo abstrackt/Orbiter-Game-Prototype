@@ -50,20 +50,21 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Boost: 0.2
+    - _Boost: 0.4
     - _Density: 1
     - _EnableExternalAlpha: 0
-    - _FalloffOffset: 1
-    - _FalloffPower: -1.4
+    - _FalloffOffset: 1.9
+    - _FalloffPower: -2.5
     - _Height: 0.04
     - _Opacity: 1
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Transparency: 0.7
+    - _Transparency: 1.4
     m_Colors:
     - _Color: {r: 1, g: 0.8613954, b: 0.7019608, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _LightPos: {r: -200, g: -200, b: -80, a: 0}
+    - _LightDir: {r: 1.52, g: 1, b: -1.53, a: 0}
+    - _LightPos: {r: 200, g: 200, b: 200, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &1907618325431190701

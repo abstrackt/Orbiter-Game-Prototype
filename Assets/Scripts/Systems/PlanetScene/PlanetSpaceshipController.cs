@@ -12,6 +12,7 @@ namespace Systems.StarsScene
 
         private PhysicsBody _physicsBody;
         private SpaceshipManager _spaceship;
+        private LocationManager _location;
         private (Vector2, Vector2) _dashData;
         private bool _maneuvering;
         private Camera _camera;
@@ -21,6 +22,13 @@ namespace Systems.StarsScene
             _camera = Camera.main;
             _physicsBody = gameObject.GetComponent<PhysicsBody>();
             _spaceship = SpaceshipManager.Instance;
+            _location = LocationManager.Instance;
+
+            var dir = Random.insideUnitCircle.normalized;
+            var perp = new Vector2(dir.y, -dir.x);
+            
+            _physicsBody.PositionOverride(dir * 80f);
+            _physicsBody.VelocityOverride(-dir * 2f + perp * Random.Range(1f, 1.5f));
         }
 
         public void Update()
@@ -33,7 +41,7 @@ namespace Systems.StarsScene
         {
             if (Input.GetKeyDown(KeyCode.O))
             {
-                _spaceship.LeaveOrbit();
+                _location.LeaveOrbit();
             }
         }
 

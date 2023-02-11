@@ -22,6 +22,7 @@ namespace Data.Map
         public float mass;
         public float radius;
         public float population;
+        public float inclination;
         public float angularVelocity;
         public float surfaceRadiation;
         public Color surfaceColor;

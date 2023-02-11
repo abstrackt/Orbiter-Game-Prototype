@@ -18,6 +18,7 @@ namespace Systems.StarsScene
         public float FuelPercent => _fuel / _spaceship.Stats.maxFuel;
 
         private SpaceshipManager _spaceship;
+        private LocationManager _location;
         private StarsMapManager _map;
         private StarsCameraManager _cameraManager;
         private PhysicsBody _physicsBody;
@@ -34,6 +35,7 @@ namespace Systems.StarsScene
             _cameraManager = StarsCameraManager.Instance;
             _physicsBody = gameObject.GetComponent<PhysicsBody>();
             _spaceship = SpaceshipManager.Instance;
+            _location = LocationManager.Instance;
             _map = StarsMapManager.Instance;
             _fuel = _spaceship.Stats.maxFuel;
 
@@ -69,7 +71,11 @@ namespace Systems.StarsScene
                     if (Input.GetKeyDown(KeyCode.O))
                     {
                         _map.SaveWorldState();
-                        _spaceship.EnterOrbit(_map.ClosestPlanetData.planet, _physicsBody);
+                        _spaceship.SaveState(_physicsBody);
+                        var planetBody = _map.ClosestPlanetPhysics.planet;
+                        var planet = _map.ClosestPlanetData.planet;
+                        var data = _map.GetClosestStarData(planetBody);
+                        _location.EnterOrbit(planet, data.star, data.dist, data.phase);
                     }
 
                     return;

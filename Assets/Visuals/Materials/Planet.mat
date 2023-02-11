@@ -106,7 +106,8 @@ Material:
     - _IceColor: {r: 1, g: 1, b: 1, a: 0}
     - _LandColor1: {r: 0.5372549, g: 0.4105979, b: 0.17647058, a: 0}
     - _LandColor2: {r: 0.4509804, g: 0.37008375, b: 0.20392156, a: 0}
-    - _LightPos: {r: -200, g: -200, b: -80, a: 0}
+    - _LightDir: {r: 0, g: 1, b: 1, a: 0}
+    - _LightPos: {r: 0, g: 200, b: 200, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
     - _SeaColor: {r: 0, g: 0.34509796, b: 0.50980395, a: 0}
     - _Wind: {r: 0.02, g: 0.01, b: 0.01, a: 0}

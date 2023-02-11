@@ -3,12 +3,12 @@
     public enum StarType
     {
         // "Normal" 1-10
-        ProtoStar = 1,
-        MainSequence = 2,
-        GiantBranch = 3,
-        SuperBranch = 4,
-        WolfRayetStar = 5,
-        CarbonStar = 6,
+        ProtoStar = 0,
+        MainSequence = 1,
+        GiantBranch = 2,
+        SuperBranch = 3,
+        WolfRayetStar = 4,
+        CarbonStar = 5,
 
         // "Normal" stellar remnants 11-20
         WhiteDwarf = 11,
