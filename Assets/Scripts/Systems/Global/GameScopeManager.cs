@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections;
 using Data.Map;
+using Systems.PlanetScene;
 using Systems.StarsScene;
-using UI.Global;
+using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -35,6 +36,8 @@ namespace Systems.Global
             _events = GameEventSystem.Instance;
             _events.OnEnteredOrbit += OnEnteredOrbit;
             _events.OnLeftOrbit += OnLeftOrbit;
+            _events.OnEnteredShipView += OnEnteredShipView;
+            _events.OnLeftShipView += OnLeftShipView;
             SceneManager.sceneLoaded += OnSceneLoaded;
             
             loadingScreen.Initialize(_events);
@@ -46,6 +49,8 @@ namespace Systems.Global
         {
             _events.OnEnteredOrbit -= OnEnteredOrbit;
             _events.OnLeftOrbit -= OnLeftOrbit;
+            _events.OnEnteredShipView -= OnEnteredShipView;
+            _events.OnLeftShipView -= OnLeftShipView;
             SceneManager.sceneLoaded -= OnSceneLoaded;
             
             loadingScreen.Deinitialize(_events);
@@ -67,6 +72,13 @@ namespace Systems.Global
                     {
                         _loaded = scope;
                         SceneManager.LoadSceneAsync("Scenes/PlanetScene", LoadSceneMode.Additive);
+                    }
+                    break;
+                case GameScope.Ship:
+                    if ((_current & _loaded) == 0)
+                    {
+                        _loaded = scope;
+                        SceneManager.LoadSceneAsync("Scenes/ShipScene", LoadSceneMode.Additive);
                     }
                     break;
             }
@@ -94,6 +106,14 @@ namespace Systems.Global
                     }
                     SceneManager.UnloadSceneAsync("Scenes/PlanetScene");
                     break;
+                case GameScope.Ship:
+                    s = SceneManager.GetSceneByName("ShipScene");
+                    foreach (var go in s.GetRootGameObjects())
+                    {
+                        go.SetActive(false);
+                    }
+                    SceneManager.UnloadSceneAsync("Scenes/ShipScene");
+                    break;
             }
         }
 
@@ -104,6 +124,9 @@ namespace Systems.Global
             {
                 case GameScope.Space:
                     StarsUIManager.Instance.Initialize(events);
+                    break;
+                case GameScope.Planet:
+                    PlanetUIManager.Instance.Initialize(events);
                     break;
             }
 
@@ -120,6 +143,7 @@ namespace Systems.Global
                     StarsUIManager.Instance.Deinitialize(events);
                     break;
                 case GameScope.Planet:
+                    PlanetUIManager.Instance.Deinitialize(events);
                     break;
             }
             
@@ -134,6 +158,16 @@ namespace Systems.Global
         public void OnLeftOrbit(PlanetData planet)
         {
             StartCoroutine(SwitchScenes(1f, GameScope.Planet, GameScope.Space));
+        }
+
+        public void OnEnteredShipView()
+        {
+            StartCoroutine(SwitchScenes(1f, GameScope.Planet, GameScope.Ship));
+        }
+        
+        public void OnLeftShipView()
+        {
+            StartCoroutine(SwitchScenes(1f, GameScope.Ship, GameScope.Planet));
         }
 
         private IEnumerator SwitchScenes(float delay, GameScope leaving, GameScope entering)

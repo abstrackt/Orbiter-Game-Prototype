@@ -10,7 +10,7 @@ namespace UI
 {
     public class UIPlanetInfoPanel : UIPanel
     {
-        public Text planetName;
+        public Text objectName;
         public Text generalInfo;
         public Text detailedInfo;
         public CanvasGroup canvasGroup;
@@ -40,7 +40,7 @@ namespace UI
 
         public void SetUp(PlanetData data)
         {
-            planetName.text = data.planetName;
+            objectName.text = data.planetName;
 
             var general = string.Empty;
 

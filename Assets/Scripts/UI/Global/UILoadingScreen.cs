@@ -4,7 +4,7 @@ using Systems.Global;
 using UnityEngine;
 using Utils;
 
-namespace UI.Global
+namespace UI
 {
     public class UILoadingScreen : UIPanel
     {
@@ -14,15 +14,24 @@ namespace UI.Global
         {
             events.OnEnteredOrbit += Show;
             events.OnLeftOrbit += Show;
+            events.OnEnteredShipView += Show;
+            events.OnLeftShipView += Show;
         }
 
         public override void Deinitialize(GameEventSystem events)
         {
             events.OnEnteredOrbit -= Show;
             events.OnLeftOrbit -= Show;
+            events.OnEnteredShipView -= Show;
+            events.OnLeftShipView -= Show;
         }
 
         public void Show(PlanetData planetData)
+        {
+            StartCoroutine(Animate());
+        }
+        
+        public void Show()
         {
             StartCoroutine(Animate());
         }

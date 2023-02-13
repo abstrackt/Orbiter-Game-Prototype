@@ -136,7 +136,7 @@ namespace Utils
                         ring = new RingData
                         {
                             innerRadius = rd.NextFloat(0.013f, 0.014f),
-                            outerRadius = inner + rd.NextFloat(0.01f, 0.04f),
+                            outerRadius = inner + rd.NextFloat(0.01f, 0.02f),
                             opacity = rd.NextFloat(0.1f, 0.6f)
                         };
                     }
@@ -149,7 +149,7 @@ namespace Utils
                         {
                             seaType = rd.NextBool() ? SeaType.Water : SeaType.Carbohydrate;
                         }
-                        else if (atmo.temperature >= 100f && atmo.temperature < 500f)
+                        else if (atmo.temperature >= 100f && atmo.temperature < 300f)
                         {
                             seaType = SeaType.Sulfur;
                         }
@@ -159,7 +159,7 @@ namespace Utils
                         }
                     }
                     
-                    var minV = isGas || isIce ? 0.85f : 0.6f;
+                    var minV = isGas || isIce ? 0.75f : 0.45f;
                     var rad = isGas ? rd.NextFloat(1.5f, 3f) : rd.NextFloat(0.5f, 1.5f);
                     
                     var planet = new PlanetData
@@ -173,13 +173,13 @@ namespace Utils
                         mass = (isGas ? 0.3f : 0.6f) * MathF.PI * MathF.Pow(rad, 3),
                         planetType = surfType,
                         seaType = seaType,
-                        population = (isGas || rd.NextFloat() > 0.1f) ? 0f : rd.NextFloat(0.5f),
+                        population = (isGas || !atmo.Inhabitable || rd.NextFloat() > 0.25f) ? 0f : rd.NextFloat(0.5f),
                         radius = rad,
                         seaLevel = atmo.CanHaveSeas ? rd.NextFloat(0.25f, 0.7f) : 0,
                         surfaceRadiation = rd.NextFloat(0, 100),
                         surfaceColor = Color.HSVToRGB(
                             rd.NextFloat(),
-                            rd.NextFloat(0.05f, 0.3f),
+                            rd.NextFloat(0.05f, 0.6f),
                             rd.NextFloat(minV, 1f)),
                         inclination = rd.NextFloat(-5, 5),
                         planetName = NameGenerator.GetRandomPlanetName()

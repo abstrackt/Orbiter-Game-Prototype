@@ -33,5 +33,15 @@ namespace Systems.Global
                 _starDistance = 0f;
             }
         }
+
+        public void EnterShipView()
+        {
+            GameEventSystem.Instance.OnEnteredShipView.Invoke();
+        }
+
+        public void LeaveShipView()
+        {
+            GameEventSystem.Instance.OnLeftShipView.Invoke();
+        }
     }
 }

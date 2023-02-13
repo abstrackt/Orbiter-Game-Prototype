@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 60b87026beb4513419e33d91596325ed
+guid: 4cf092bd13ade43efb7cb5207bf54c94
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Halogen Rough by Pixel Surplus
+  - Planeto
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

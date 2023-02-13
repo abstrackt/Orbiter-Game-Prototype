@@ -9,5 +9,7 @@ namespace Systems.Global
         public Action<string> OnSystemDiscovered;
         public Action<PlanetData> OnEnteredOrbit;
         public Action<PlanetData> OnLeftOrbit;
+        public Action OnEnteredShipView;
+        public Action OnLeftShipView;
     }
 }

@@ -101,12 +101,13 @@ namespace Systems.Physics
 
                 var body = _physicsBodies[i];
                 
-                if (!body.bodyRenderer.isVisible && 
+                if (body.bodyRenderer != null && 
+                    !body.bodyRenderer.isVisible && 
                     body.cachedClosest != null && 
                     body.cachedClosest != closestToShip && 
                     body != playerSpaceship)
                     continue;
-
+                
                 var closest = GetClosestAttractor(_positions[i]);
                 
                 var accel = GetNetAcceleration(i, closest);
@@ -224,6 +225,9 @@ namespace Systems.Physics
 
         public Vector2 Gravity(Vector2 point, Attractor closest)
         {
+            if (closest == null) 
+                return Vector2.zero;
+
             var temp = closest.transform.position;
             var center = new Vector2(temp.x, temp.y);
             var accel = (center - point).normalized;

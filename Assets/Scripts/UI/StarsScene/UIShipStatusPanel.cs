@@ -9,13 +9,13 @@ namespace UI
 {
     public class UIShipStatusPanel : UIPanel
     {
-        public float fuelWidth = 1870;
         public Image fuelImage;
         public Text velocityText;
         public Text gravityText;
 
         private StarsSpaceshipController _controller;
         private PhysicsSystem _physics;
+        private float _fuelSize;
 
         public override void Initialize(GameEventSystem events)
         {
@@ -31,12 +31,13 @@ namespace UI
         {
             _controller = StarsSpaceshipController.Instance;
             _physics = PhysicsSystem.Instance;
+            _fuelSize = fuelImage.rectTransform.rect.height;
         }
         
         public void Update()
         {
-            var width = fuelWidth * _controller.FuelPercent;
-            fuelImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
+            var size = _fuelSize * _controller.FuelPercent;
+            fuelImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, size);
             velocityText.text = $"{_controller.C:0.00}c";
             var shipPos = _controller.transform.position;
             gravityText.text = $"{_physics.Gravity(shipPos).magnitude / 9.81f:0.00}g";

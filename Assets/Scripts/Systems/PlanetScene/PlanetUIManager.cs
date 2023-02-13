@@ -1,7 +1,7 @@
 using Systems.Global;
 using UI;
 
-namespace Systems.StarsScene
+namespace Systems.PlanetScene
 {
     public class PlanetUIManager : SingletonMonoBehaviour<PlanetUIManager>
     {

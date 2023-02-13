@@ -72,7 +72,7 @@ namespace Visuals.PlanetScene
                 starLight.color = starColor;
                 starSprite.transform.localScale = new Vector3(starSize, starSize, 1) / (_location.StarDistance * 0.05f);
                 starLight.intensity = starSize * 0.75f / (_location.StarDistance * 0.01f);
-                starLight.pointLightOuterRadius *= Mathf.Sqrt(starSize) / (_location.StarDistance * 0.1f);
+                starLight.pointLightOuterRadius *= starSize / (_location.StarDistance * 0.1f);
             }
             else
             {
@@ -138,6 +138,12 @@ namespace Visuals.PlanetScene
             {
                 cloudCol = Color.Lerp(seaCol, cloudCol, 0.9f);
             }
+
+            if (gas)
+            {
+                Color.RGBToHSV(atmoCol, out h, out s, out v);
+                cloudCol = Color.HSVToRGB(h, s, v * 0.7f);
+            }
             
             planet.material.SetColor("_CloudColor", cloudCol);
 
@@ -150,11 +156,11 @@ namespace Visuals.PlanetScene
 
             if (data.seaLevel > 0.5f)
             {
-                iceCol = Color.Lerp(seaCol, iceCol, 0.9f);
+                iceCol = Color.Lerp(seaCol, iceCol, 0.8f);
             }
             
             var mult = -(data.atmoData.temperature - 30f) / 100f;
-            var iceSize = data.atmoData.temperature < 30f && !gas ? Mathf.Clamp01(data.atmoData.Humidity + 0.5f * mult) * 0.8f : 0f;
+            var iceSize = data.atmoData.temperature < 30f && !gas ? Mathf.Clamp01(data.atmoData.Humidity * mult + 0.5f) * 0.7f : 0f;
             
             planet.material.SetColor("_IceColor", iceCol);
             planet.material.SetFloat("_IceCapSize", iceSize);
@@ -172,7 +178,7 @@ namespace Visuals.PlanetScene
 
             var craterAmount = 0f;
 
-            if (data.atmoData.pressure < AtmosphereData.MAX_PRESSURE * 0.2f)
+            if (data.atmoData.pressure < 600)
             {
                 craterAmount = Random.Range(0.01f, 0.05f);
             }
@@ -199,6 +205,7 @@ namespace Visuals.PlanetScene
                     break;
                 case SeaType.Lava:
                     rgb = new Color(1f, 0.6f, 0.2f);
+                    rgb = Color.Lerp(surface, rgb, 0.6f);
                     break;
                 case SeaType.Gas:
                     return surface;

@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Systems.StarsScene;
+using Systems.PlanetScene;
 using UnityEngine;
 using Vectrosity;
 

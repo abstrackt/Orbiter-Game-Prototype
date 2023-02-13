@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Default Ship
   m_EditorClassIdentifier: 
   thrust: 5
-  maxFuel: 300
-  consumptionRate: 1
+  maxFuel: 100
+  consumptionRate: 3
   refuelRange: 2

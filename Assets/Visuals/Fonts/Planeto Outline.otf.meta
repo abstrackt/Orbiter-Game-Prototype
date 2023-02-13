@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 869ad9aeaa2ddae44a6c287e272ea7e3
+guid: 177afc9f386dc4d97b2bef5edd5a74b8
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Halogen by Pixel Surplus
+  - Planeto Outline
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
