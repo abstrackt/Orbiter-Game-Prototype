@@ -1,0 +1,44 @@
+CSV files:
+
+Single_Star_Solar.csv - 1000 single stars at age around 4.5 Gyr with solar-like metallicity
+Single_Star_Population_II.csv - 1000 single stars at age around 11.0 Gyr with low metallicity (0.0005)
+Columns:
+Type [str] - stellar type
+Luminosity [solar luminosity]
+Mass [solar mass]
+Radius [solar radii]
+Age [Myr]
+Temperature [K] - effective temperature
+
+Binary_Solar.csv - 1000 binary systems at age around 4.5 Gyr with solar-like metallicity
+Binary_Population_II.csv - 1000 single stars at age around 11.0 Gyr with low metallicity (0.0005)
+Columns:
+Eccentricity - usually 0.0, >1.0 if the system is disrupted - then take one component
+Luminosity(1), Luminosity(2) [solar luminosity]
+Mass(1), Mass(2) [solar mass]
+Pulsar_Mag_Field(1), Pulsar_Mag_Field(2) [G] - >0.0 if the star is pulsar
+Pulsar_Spin_Freq(1), Pulsar_Spin_Freq(2) [ms] - >0.0 if the star is pulsar
+Radius(1), Radius(2) [solar radii]
+SemiMajorAxis [AU]
+Teff(1), Teff(2) [K]
+Age [Myr]
+Type(1), Type(2)
+
+Stellar types:
+['Main Sequence, M<0.7 Msun',
+ 'Main Sequence, M>0.7 Msun',
+ 'Herztsprung Gap',
+ 'First Giant Branch',
+ 'Core Helium Burning',
+ 'Early Asymptotic Giant Branch',
+ 'Thermally Pulsing Asymptotic Giant Branch',
+ 'Helium MS',
+ 'Helium Herztsprung Gap',
+ 'Helium Giant Branch',
+ 'Helium White Dwarf',
+ 'C-O White Dwarf',
+ 'O-N White Dwarf',
+ 'Neutron Star',
+ 'Black Hole',
+ 'Massless Remnant',
+ 'Chemically Homogenously Evolving']
