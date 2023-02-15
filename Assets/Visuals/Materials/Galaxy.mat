@@ -55,7 +55,7 @@ Material:
     m_Ints: []
     m_Floats:
     - Vector1_3ad8d1804d92455cbc03473cbc883670: 0.3
-    - Vector1_bcd05662f1e148c0bcaf7621936da7d5: 0.015
+    - Vector1_bcd05662f1e148c0bcaf7621936da7d5: 0.0075
     - Vector1_e5845e142f9b4f7aa2b7332852cd7385: 1.5
     - Vector1_eb4afd7fa3254478a603bc898b8c6872: 0.37
     - Vector1_ed7576e1c797471aa686b61edf89885c: 0.25
@@ -71,7 +71,7 @@ Material:
     - _Surface: 0
     - _ZWrite: 1
     m_Colors:
-    - Color_5cb9a92270fa4d6ba9f325e4c2b3269c: {r: 0.09747693, g: 0.11270773, b: 0.198, a: 0}
+    - Color_5cb9a92270fa4d6ba9f325e4c2b3269c: {r: 0.11006062, g: 0.130697, b: 0.22700001, a: 0}
     - Color_d6b18f9fd7d24a24897953913e8f200e: {r: 0.08206897, g: 0.09965518, b: 0.17, a: 0}
     - Vector2_987943bb8a46413292bdcd6aee4f90f8: {r: 1, g: 1, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}

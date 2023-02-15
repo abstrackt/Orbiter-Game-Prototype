@@ -49,11 +49,11 @@ namespace Systems.ShipScene
             // Rewrite for more fine control later
             if (Input.GetKey(KeyCode.Q))
             {
-                hor = -1f;
+                hor = 1f;
             }
             else if (Input.GetKey(KeyCode.E))
             {
-                hor = 1f;
+                hor = -1f;
             }
 
             if (vert != 0 || hor != 0 || turn != 0)
