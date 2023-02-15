@@ -63,7 +63,7 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 0.8613954, b: 0.7019608, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _LightDir: {r: 1.52, g: 1, b: -1.53, a: 0}
+    - _LightDir: {r: -1, g: 0, b: -1, a: 0}
     - _LightPos: {r: 200, g: 200, b: 200, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

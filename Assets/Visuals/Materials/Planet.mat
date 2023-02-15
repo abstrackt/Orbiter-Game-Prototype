@@ -85,10 +85,10 @@ Material:
     - _LandDetail: 6
     - _LightBoost: 0.1
     - _LightIntensity: 3
-    - _Population: 0.33
+    - _Population: 0.18
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _SeaLevel: 0.2
+    - _SeaLevel: 0.5
     - _SimpleScale: 9.16
     - _Smoothness: 0.1
     m_Colors:
@@ -104,12 +104,12 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _IceColor: {r: 1, g: 1, b: 1, a: 0}
-    - _LandColor1: {r: 0.5372549, g: 0.4105979, b: 0.17647058, a: 0}
-    - _LandColor2: {r: 0.4509804, g: 0.37008375, b: 0.20392156, a: 0}
-    - _LightDir: {r: 0, g: 1, b: 1, a: 0}
+    - _LandColor1: {r: 0.695074, g: 0.48406908, b: 0.6981132, a: 0}
+    - _LandColor2: {r: 0.56383246, g: 0.39278212, b: 0.56700003, a: 0}
+    - _LightDir: {r: -1, g: 0, b: -1, a: 0}
     - _LightPos: {r: 0, g: 200, b: 200, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
-    - _SeaColor: {r: 0, g: 0.34509796, b: 0.50980395, a: 0}
+    - _SeaColor: {r: 0.26900145, g: 0.6595993, b: 0.8773585, a: 0}
     - _Wind: {r: 0.02, g: 0.01, b: 0.01, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &1093557493613537401
