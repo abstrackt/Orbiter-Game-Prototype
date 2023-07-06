@@ -4,6 +4,7 @@ namespace Data.Map
 {
     public struct StarData
     {
+        public MapID id;
         public string starName;
         public Vector2 initPosition;
         public StarType starType;

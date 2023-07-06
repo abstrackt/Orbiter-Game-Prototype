@@ -17,7 +17,7 @@ namespace Systems.StarsScene
         
         private StarsSpaceshipController _controller;
         private PhysicsSystem _physics;
-        private SaveLoadManager _saves;
+        private SaveManager _saves;
 
         private struct PlanetEntry
         {
@@ -54,7 +54,7 @@ namespace Systems.StarsScene
         {
             _controller = StarsSpaceshipController.Instance;
             _physics = PhysicsSystem.Instance;
-            _saves = SaveLoadManager.Instance;
+            _saves = SaveManager.Instance;
 
             // Load from file later on
             var data = _saves.GetCurrentSave();

@@ -12,6 +12,7 @@ namespace Data.Map
         public float SurfaceGravity => 0.5f * mass / Mathf.Pow(radius, 2);
         public float HoursInDay => 2 * Mathf.PI / angularVelocity;
 
+        public MapID id;
         public string planetName;
         public Vector2 initPosition;
         public PlanetType planetType;
